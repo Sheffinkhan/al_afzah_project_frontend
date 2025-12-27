@@ -1,0 +1,103 @@
+.clients-page {
+  padding-top: 64px;
+}
+
+.clients-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 64px 16px;
+}
+
+/* Client Form */
+.client-form-card {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.client-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Clients Grid */
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .clients-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .clients-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.client-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+  background-color: white;
+  position: relative;
+}
+
+.client-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.delete-btn-client {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+  padding: 4px;
+  transition: all 0.3s ease;
+}
+
+.delete-btn-client:hover {
+  color: #991b1b;
+}
+
+.client-logo {
+  background-color: #e5e7eb;
+  height: 96px;
+  width: 96px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.building-icon {
+  color: #9ca3af;
+}
+
+.client-name {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #1f2937;
+}
+
+.client-description {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.4;
+}
