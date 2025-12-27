@@ -9,7 +9,7 @@ const Homepage = ({ setCurrentPage }) => {
       <div className="hero-section">
         <div className="hero-container">
           <div className="hero-content">
-            <h1 className="hero-title">Welcome to Al Afza</h1>
+            <h1 className="hero-title">Welcome to Al Afzah</h1>
             <p className="hero-subtitle">
               Your trusted partner in construction, contracting, and project management excellence
             </p>

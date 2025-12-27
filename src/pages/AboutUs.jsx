@@ -16,7 +16,7 @@ const AboutUs = () => {
         <div className="company-overview">
           <h2 className="section-title">Who We Are</h2>
           <p className="overview-text">
-            Al Afza is a leading construction and contracting company committed to delivering 
+            Al Afzah is a leading construction and contracting company committed to delivering 
             exceptional quality and innovative solutions. With years of experience in the industry, 
             we have established ourselves as a trusted partner for diverse construction projects.
           </p>
