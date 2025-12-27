@@ -20,7 +20,7 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
         <div className="navbar-content">
           <div className="navbar-logo">
             <Building2 className="logo-icon" size={32} />
-            <span className="logo-text">Al Afza</span>
+            <span className="logo-text">Al Afzah</span>
           </div>
           
           {/* Desktop Menu */}
