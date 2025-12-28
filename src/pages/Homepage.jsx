@@ -5,11 +5,11 @@ const Homepage = ({ setCurrentPage }) => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-5xl font-bold mb-6">Welcome to Al Afzah</h1>
-            <p className="text-xl mb-8 max-w-2xl mx-auto">
+      <div className="hero-section">
+        <div className="hero-container">
+          <div className="hero-content">
+            <h1 className="hero-title">Welcome to Al Afzah</h1>
+            <p className="hero-subtitle">
               Your trusted partner in construction, contracting, and project management excellence
             </p>
             <button 

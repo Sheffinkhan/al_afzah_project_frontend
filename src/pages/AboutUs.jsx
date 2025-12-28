@@ -14,7 +14,10 @@ const AboutUs = () => {
         {/* Company Overview */}
         <div className="mb-16">
           <h2 className="text-3xl font-bold mb-6 text-center">Who We Are</h2>
-          <p className="text-lg text-gray-700 max-w-4xl mx-auto text-center">
+          <p className="text-lg text-gray-700 max-w-4xl mx-auto text-center"
+        <div className="company-overview">
+          <h2 className="section-title">Who We Are</h2>
+          <p className="overview-text">
             Al Afzah is a leading construction and contracting company committed to delivering 
             exceptional quality and innovative solutions. With years of experience in the industry, 
             we have established ourselves as a trusted partner for diverse construction projects.

@@ -56,6 +56,8 @@ const Homepage = ({ setCurrentPage }) => {
           >
             Contact Us Today
           </button>
+        <div className="footer-bottom">
+          <p>&copy; 2024 Al Afzah. All rights reserved.</p>
         </div>
       </div>
     </div>

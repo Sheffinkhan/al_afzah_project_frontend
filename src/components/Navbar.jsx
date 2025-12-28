@@ -14,12 +14,12 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
   ];
 
   return (
-    <nav className="bg-white shadow-md fixed w-full top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-2">
-            <Building2 className="text-blue-600" size={32} />
-            <span className="text-2xl font-bold text-gray-800">Al Afzah</span>
+    <nav className="navbar">
+      <div className="navbar-container">
+        <div className="navbar-content">
+          <div className="navbar-logo">
+            <Building2 className="logo-icon" size={32} />
+            <span className="logo-text">Al Afzah</span>
           </div>
           
           {/* Desktop Menu */}
