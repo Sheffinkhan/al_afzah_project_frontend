@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { MapPin, Phone, Mail } from 'lucide-react';
-import './Contact.css';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -17,99 +16,99 @@ const Contact = () => {
   };
 
   return (
-    <div className="contact-page">
-      <div className="page-header">
-        <div className="page-header-container">
-          <h1 className="page-title">Contact Us</h1>
-          <p className="page-subtitle">Get in touch with our team</p>
+    <div className="pt-16">
+      <div className="bg-blue-600 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-4xl font-bold text-center">Contact Us</h1>
+          <p className="text-center mt-4 text-xl">Get in touch with our team</p>
         </div>
       </div>
 
-      <div className="contact-container">
-        <div className="contact-grid">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="contact-form-section">
-            <h2 className="section-heading">Send us a Message</h2>
-            <form onSubmit={handleSubmit} className="contact-form">
-              <div className="form-group">
-                <label className="form-label">Name</label>
+          <div>
+            <h2 className="text-2xl font-bold mb-6">Send us a Message</h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">Name</label>
                 <input
                   type="text"
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="form-input"
+                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <div className="form-group">
-                <label className="form-label">Email</label>
+              <div>
+                <label className="block text-sm font-medium mb-1">Email</label>
                 <input
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="form-input"
+                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <div className="form-group">
-                <label className="form-label">Phone</label>
+              <div>
+                <label className="block text-sm font-medium mb-1">Phone</label>
                 <input
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  className="form-input"
+                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <div className="form-group">
-                <label className="form-label">Message</label>
+              <div>
+                <label className="block text-sm font-medium mb-1">Message</label>
                 <textarea
                   required
                   value={formData.message}
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
-                  className="form-input form-textarea"
+                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   rows="5"
                 />
               </div>
-              <button type="submit" className="submit-btn-contact">
+              <button type="submit" className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 w-full transition">
                 Send Message
               </button>
             </form>
           </div>
 
           {/* Contact Information */}
-          <div className="contact-info-section">
-            <h2 className="section-heading">Contact Information</h2>
-            <div className="contact-info-list">
-              <div className="info-item">
-                <MapPin className="info-icon" size={24} />
+          <div>
+            <h2 className="text-2xl font-bold mb-6">Contact Information</h2>
+            <div className="space-y-6">
+              <div className="flex items-start space-x-4">
+                <MapPin className="text-blue-600 flex-shrink-0" size={24} />
                 <div>
-                  <h3 className="info-title">Address</h3>
-                  <p className="info-text">Dubai, United Arab Emirates</p>
+                  <h3 className="font-semibold mb-1">Address</h3>
+                  <p className="text-gray-600">Dubai, United Arab Emirates</p>
                 </div>
               </div>
               
-              <div className="info-item">
-                <Phone className="info-icon" size={24} />
+              <div className="flex items-start space-x-4">
+                <Phone className="text-blue-600 flex-shrink-0" size={24} />
                 <div>
-                  <h3 className="info-title">Phone</h3>
-                  <p className="info-text">+971 XX XXX XXXX</p>
+                  <h3 className="font-semibold mb-1">Phone</h3>
+                  <p className="text-gray-600">+971 XX XXX XXXX</p>
                 </div>
               </div>
               
-              <div className="info-item">
-                <Mail className="info-icon" size={24} />
+              <div className="flex items-start space-x-4">
+                <Mail className="text-blue-600 flex-shrink-0" size={24} />
                 <div>
-                  <h3 className="info-title">Email</h3>
-                  <p className="info-text">info@alafza.com</p>
+                  <h3 className="font-semibold mb-1">Email</h3>
+                  <p className="text-gray-600">info@alafzah.com</p>
                 </div>
               </div>
             </div>
 
-            <div className="business-hours">
-              <h3 className="info-title">Business Hours</h3>
-              <p className="hours-text">Monday - Friday: 8:00 AM - 6:00 PM</p>
-              <p className="hours-text">Saturday: 9:00 AM - 2:00 PM</p>
-              <p className="hours-text">Sunday: Closed</p>
+            <div className="mt-8 p-6 bg-blue-50 rounded-lg">
+              <h3 className="font-semibold mb-2">Business Hours</h3>
+              <p className="text-gray-700">Monday - Friday: 8:00 AM - 6:00 PM</p>
+              <p className="text-gray-700">Saturday: 9:00 AM - 2:00 PM</p>
+              <p className="text-gray-700">Sunday: Closed</p>
             </div>
           </div>
         </div>
