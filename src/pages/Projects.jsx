@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Camera, X } from 'lucide-react';
-import './Projects.css';
 
 const Projects = ({ projects, setProjects, isAdmin }) => {
   const [showForm, setShowForm] = useState(false);
@@ -30,20 +29,20 @@ const Projects = ({ projects, setProjects, isAdmin }) => {
   };
 
   return (
-    <div className="projects-page">
-      <div className="page-header">
-        <div className="page-header-container">
-          <h1 className="page-title">Our Projects</h1>
-          <p className="page-subtitle">Showcasing our commitment to excellence</p>
+    <div className="pt-16">
+      <div className="bg-blue-600 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-4xl font-bold text-center">Our Projects</h1>
+          <p className="text-center mt-4 text-xl">Showcasing our commitment to excellence</p>
         </div>
       </div>
 
-      <div className="projects-container">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {isAdmin && (
-          <div className="admin-controls">
+          <div className="mb-8">
             <button
               onClick={() => setShowForm(!showForm)}
-              className="add-btn"
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
             >
               {showForm ? 'Cancel' : '+ Add New Project'}
             </button>
@@ -51,82 +50,84 @@ const Projects = ({ projects, setProjects, isAdmin }) => {
         )}
 
         {showForm && (
-          <div className="project-form-card">
-            <h3 className="form-title">Add New Project</h3>
-            <form onSubmit={handleSubmit} className="project-form">
-              <div className="form-group">
-                <label className="form-label">Project Title</label>
+          <div className="bg-white border rounded-lg p-6 mb-8 shadow-lg">
+            <h3 className="text-xl font-semibold mb-4">Add New Project</h3>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">Project Title</label>
                 <input
                   type="text"
                   required
                   value={formData.title}
                   onChange={(e) => setFormData({...formData, title: e.target.value})}
-                  className="form-input"
+                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <div className="form-group">
-                <label className="form-label">Description</label>
+              <div>
+                <label className="block text-sm font-medium mb-1">Description</label>
                 <textarea
                   required
                   value={formData.description}
                   onChange={(e) => setFormData({...formData, description: e.target.value})}
-                  className="form-input form-textarea"
+                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   rows="3"
                 />
               </div>
-              <div className="form-group">
-                <label className="form-label">Category</label>
+              <div>
+                <label className="block text-sm font-medium mb-1">Category</label>
                 <input
                   type="text"
                   required
                   value={formData.category}
                   onChange={(e) => setFormData({...formData, category: e.target.value})}
-                  className="form-input"
+                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="e.g., Residential, Commercial"
                 />
               </div>
-              <div className="form-group">
-                <label className="form-label">Status</label>
+              <div>
+                <label className="block text-sm font-medium mb-1">Status</label>
                 <select
                   value={formData.status}
                   onChange={(e) => setFormData({...formData, status: e.target.value})}
-                  className="form-input"
+                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option>Completed</option>
                   <option>In Progress</option>
                   <option>Upcoming</option>
                 </select>
               </div>
-              <button type="submit" className="submit-btn">
+              <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
                 Add Project
               </button>
             </form>
           </div>
         )}
 
-        <div className="projects-grid">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
-            <div key={project.id} className="project-card">
-              <div className="project-image">
-                <Camera size={64} className="camera-icon" />
+            <div key={project.id} className="border rounded-lg overflow-hidden hover:shadow-xl transition transform hover:-translate-y-1">
+              <div className="bg-gray-200 h-48 flex items-center justify-center">
+                <Camera size={64} className="text-gray-400" />
               </div>
-              <div className="project-content">
-                <div className="project-header">
-                  <h3 className="project-title">{project.title}</h3>
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-xl font-semibold">{project.title}</h3>
                   {isAdmin && (
                     <button
                       onClick={() => handleDelete(project.id)}
-                      className="delete-btn"
+                      className="text-red-600 hover:text-red-800 transition"
                     >
                       <X size={20} />
                     </button>
                   )}
                 </div>
-                <span className="project-category">{project.category}</span>
-                <p className="project-description">{project.description}</p>
-                <div className="project-footer">
-                  <span className="project-status">{project.status}</span>
-                  <span className="project-date">{project.date}</span>
+                <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded mb-2">
+                  {project.category}
+                </span>
+                <p className="text-gray-600 mb-2">{project.description}</p>
+                <div className="flex justify-between items-center text-sm text-gray-500">
+                  <span>{project.status}</span>
+                  <span>{project.date}</span>
                 </div>
               </div>
             </div>
@@ -134,7 +135,7 @@ const Projects = ({ projects, setProjects, isAdmin }) => {
         </div>
 
         {projects.length === 0 && (
-          <div className="empty-state">
+          <div className="text-center py-12 text-gray-500">
             <p>No projects added yet. {isAdmin && 'Click "Add New Project" to get started.'}</p>
           </div>
         )}

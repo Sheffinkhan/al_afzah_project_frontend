@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Building2, Menu, X } from 'lucide-react';
-import './Navbar.css';
 
 const Navbar = ({ currentPage, setCurrentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,12 +23,16 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
           </div>
           
           {/* Desktop Menu */}
-          <div className="navbar-menu-desktop">
+          <div className="hidden md:flex space-x-8">
             {menuItems.map(item => (
               <button
                 key={item.id}
                 onClick={() => setCurrentPage(item.id)}
-                className={`nav-link ${currentPage === item.id ? 'active' : ''}`}
+                className={`${
+                  currentPage === item.id 
+                    ? 'text-blue-600 border-b-2 border-blue-600' 
+                    : 'text-gray-700 hover:text-blue-600'
+                } pb-1 transition-colors`}
               >
                 {item.label}
               </button>
@@ -38,7 +41,7 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
 
           {/* Mobile Menu Button */}
           <button 
-            className="mobile-menu-btn"
+            className="md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -47,7 +50,7 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="navbar-menu-mobile">
+          <div className="md:hidden pb-4">
             {menuItems.map(item => (
               <button
                 key={item.id}
@@ -55,7 +58,11 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
                   setCurrentPage(item.id);
                   setIsMenuOpen(false);
                 }}
-                className={`nav-link-mobile ${currentPage === item.id ? 'active' : ''}`}
+                className={`block w-full text-left py-2 px-4 ${
+                  currentPage === item.id 
+                    ? 'text-blue-600 bg-blue-50' 
+                    : 'text-gray-700 hover:bg-gray-50'
+                }`}
               >
                 {item.label}
               </button>

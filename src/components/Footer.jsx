@@ -1,57 +1,67 @@
 import React from 'react';
-import { Building2, Phone, Mail, MapPin } from 'lucide-react';
-import './Footer.css';
+import { Award, Users, CheckCircle } from 'lucide-react';
 
-const Footer = () => {
+const Homepage = ({ setCurrentPage }) => {
   return (
-    <footer className="footer">
-      <div className="footer-container">
-        <div className="footer-grid">
-          <div className="footer-section">
-            <div className="footer-logo">
-              <Building2 size={28} />
-              <span className="footer-logo-text">Al Afza</span>
-            </div>
-            <p className="footer-description">
-              Building excellence through quality construction and innovative design solutions.
+    <div className="pt-16">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-5xl font-bold mb-6">Welcome to Al Afzah</h1>
+            <p className="text-xl mb-8 max-w-2xl mx-auto">
+              Your trusted partner in construction, contracting, and project management excellence
             </p>
-          </div>
-          
-          <div className="footer-section">
-            <h3 className="footer-title">Quick Links</h3>
-            <ul className="footer-links">
-              <li>About Us</li>
-              <li>Services</li>
-              <li>Projects</li>
-              <li>Contact</li>
-            </ul>
-          </div>
-          
-          <div className="footer-section">
-            <h3 className="footer-title">Contact Info</h3>
-            <div className="footer-contact">
-              <div className="contact-item">
-                <Phone size={16} />
-                <span>+971 XX XXX XXXX</span>
-              </div>
-              <div className="contact-item">
-                <Mail size={16} />
-                <span>info@alafza.com</span>
-              </div>
-              <div className="contact-item">
-                <MapPin size={16} />
-                <span>Dubai, UAE</span>
-              </div>
-            </div>
+            <button 
+              onClick={() => setCurrentPage('contact')}
+              className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition transform hover:-translate-y-1 hover:shadow-lg"
+            >
+              Get Started
+            </button>
           </div>
         </div>
-        
+      </div>
+
+      {/* Features Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="text-center p-6 border rounded-lg hover:shadow-lg transition transform hover:-translate-y-1">
+            <Award className="mx-auto text-blue-600 mb-4" size={48} />
+            <h3 className="text-xl font-semibold mb-2">Quality Excellence</h3>
+            <p className="text-gray-600">Delivering superior quality in every project we undertake</p>
+          </div>
+          
+          <div className="text-center p-6 border rounded-lg hover:shadow-lg transition transform hover:-translate-y-1">
+            <Users className="mx-auto text-blue-600 mb-4" size={48} />
+            <h3 className="text-xl font-semibold mb-2">Expert Team</h3>
+            <p className="text-gray-600">Skilled professionals dedicated to your success</p>
+          </div>
+          
+          <div className="text-center p-6 border rounded-lg hover:shadow-lg transition transform hover:-translate-y-1">
+            <CheckCircle className="mx-auto text-blue-600 mb-4" size={48} />
+            <h3 className="text-xl font-semibold mb-2">Timely Delivery</h3>
+            <p className="text-gray-600">Committed to meeting deadlines without compromising quality</p>
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="bg-gray-100 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold mb-4">Ready to Start Your Project?</h2>
+          <p className="text-xl text-gray-600 mb-8">Let's build something amazing together</p>
+          <button 
+            onClick={() => setCurrentPage('contact')}
+            className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition transform hover:-translate-y-1 hover:shadow-lg"
+          >
+            Contact Us Today
+          </button>
         <div className="footer-bottom">
           <p>&copy; 2024 Al Afzah. All rights reserved.</p>
         </div>
       </div>
-    </footer>
+    </div>
   );
 };
 
-export default Footer;
+export default Homepage;

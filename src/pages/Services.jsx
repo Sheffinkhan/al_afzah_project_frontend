@@ -1,6 +1,5 @@
 import React from 'react';
 import { Building2, Briefcase, Award, Users, CheckCircle } from 'lucide-react';
-import './Services.css';
 
 const Services = () => {
   const services = [
@@ -37,23 +36,23 @@ const Services = () => {
   ];
 
   return (
-    <div className="services-page">
-      <div className="page-header">
-        <div className="page-header-container">
-          <h1 className="page-title">Our Services</h1>
-          <p className="page-subtitle">Comprehensive solutions for all your construction needs</p>
+    <div className="pt-16">
+      <div className="bg-blue-600 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-4xl font-bold text-center">Our Services</h1>
+          <p className="text-center mt-4 text-xl">Comprehensive solutions for all your construction needs</p>
         </div>
       </div>
 
-      <div className="services-container">
-        <div className="services-grid">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
-              <div key={index} className="service-card">
-                <Icon className="service-icon" size={48} />
-                <h3 className="service-title">{service.title}</h3>
-                <p className="service-description">{service.description}</p>
+              <div key={index} className="border rounded-lg p-6 hover:shadow-xl transition transform hover:-translate-y-1">
+                <Icon className="text-blue-600 mb-4" size={48} />
+                <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
+                <p className="text-gray-600">{service.description}</p>
               </div>
             );
           })}
