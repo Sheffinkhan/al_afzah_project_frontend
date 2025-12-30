@@ -28,6 +28,14 @@ const App = () => {
       category: 'Commercial',
       status: 'Completed',
       date: '2024-02-20'
+    },
+    {
+      id: 3,
+      title: 'Soorath Autos',
+      description: 'Vehicle Reselling',
+      category: 'Vehicle',
+      status: 'Completed',
+      date: '2024-02-20'
     }
   ]);
   
