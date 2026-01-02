@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+
 import Homepage from './pages/Homepage';
 import AboutUs from './pages/AboutUs';
 import Services from './pages/Services';
@@ -9,9 +12,8 @@ import Clients from './pages/Clients';
 import Contact from './pages/Contact';
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState('home');
   const [isAdmin, setIsAdmin] = useState(true);
-  
+
   const [projects, setProjects] = useState([
     {
       id: 1,
@@ -30,7 +32,7 @@ const App = () => {
       date: '2024-02-20'
     }
   ]);
-  
+
   const [clients, setClients] = useState([
     {
       id: 1,
@@ -50,41 +52,49 @@ const App = () => {
   ]);
 
   const toggleAdmin = () => {
-    setIsAdmin(!isAdmin);
-  };
-
-  const renderPage = () => {
-    switch(currentPage) {
-      case 'home':
-        return <Homepage setCurrentPage={setCurrentPage} />;
-      case 'about':
-        return <AboutUs />;
-      case 'services':
-        return <Services />;
-      case 'projects':
-        return <Projects projects={projects} setProjects={setProjects} isAdmin={isAdmin} />;
-      case 'clients':
-        return <Clients clients={clients} setClients={setClients} isAdmin={isAdmin} />;
-      case 'contact':
-        return <Contact />;
-      default:
-        return <Homepage setCurrentPage={setCurrentPage} />;
-    }
+    setIsAdmin(prev => !prev);
   };
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
-      
-      {/* Admin Mode Toggle */}
+      <Navbar />
+
+      {/* Admin Mode Toggle (UNCHANGED) */}
       <button
         onClick={toggleAdmin}
         className="fixed bottom-4 right-4 bg-gray-800 text-white px-4 py-2 rounded-full shadow-lg z-50 text-sm hover:bg-gray-700 transition"
       >
         {isAdmin ? '🔓 Admin Mode' : '🔒 View Mode'}
       </button>
-      
-      {renderPage()}
+
+      {/* ✅ ROUTES (this replaces renderPage completely) */}
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/services" element={<Services />} />
+        <Route
+          path="/projects"
+          element={
+            <Projects
+              projects={projects}
+              setProjects={setProjects}
+              isAdmin={isAdmin}
+            />
+          }
+        />
+        <Route
+          path="/clients"
+          element={
+            <Clients
+              clients={clients}
+              setClients={setClients}
+              isAdmin={isAdmin}
+            />
+          }
+        />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+
       <Footer />
     </div>
   );
