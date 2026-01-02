@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { 
-  Award,  
+  Award, 
   ArrowRight, 
   ArrowDown,
   Zap,
@@ -20,39 +20,29 @@ import {
 
 // Custom hook for scroll animations
 const useScrollAnimation = () => {
-  // const ref = useRef(null);
-//   const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
 
-//  const useScrollAnimation = () => {
-//   const ref = useRef(null);
-//   const [isVisible, setIsVisible] = useState(false);
+    useEffect(() => {
+    const currentRef = ref.current;
+    if (!currentRef) return;
 
-//   useEffect(() => {
-//     const node = ref.current; // 👈 capture once
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1, rootMargin: '-50px' }
+    );
 
-//     if (!node) return;
+    observer.observe(currentRef);
 
-//     const observer = new IntersectionObserver(
-//       ([entry]) => {
-//         if (entry.isIntersecting) {
-//           setIsVisible(true);
-//         }
-//       },
-//       { threshold: 0.1, rootMargin: '-50px' }
-//     );
-
-//     observer.observe(node);
-
-//     return () => {
-//       observer.unobserve(node); // 👈 safe cleanup
-//       observer.disconnect();
-//     };
-//   }, []);
-
-//   return [ref, isVisible];
-// };
-
-  // return [ref, isVisible];
+    return () => {
+      observer.unobserve(currentRef);
+    };
+  }, []); // dependency array stays empty — no external values used
+  return [ref, isVisible];
 };
 
 // Animated Section Component
