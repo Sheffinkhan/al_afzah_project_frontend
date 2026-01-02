@@ -1,8 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
-  Award, 
-  Users, 
-  CheckCircle, 
+  Award,  
   ArrowRight, 
   ArrowDown,
   Zap,
@@ -22,31 +20,39 @@ import {
 
 // Custom hook for scroll animations
 const useScrollAnimation = () => {
-  const ref = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+  // const ref = useRef(null);
+//   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1, rootMargin: '-50px' }
-    );
+//  const useScrollAnimation = () => {
+//   const ref = useRef(null);
+//   const [isVisible, setIsVisible] = useState(false);
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+//   useEffect(() => {
+//     const node = ref.current; // 👈 capture once
 
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, []);
+//     if (!node) return;
 
-  return [ref, isVisible];
+//     const observer = new IntersectionObserver(
+//       ([entry]) => {
+//         if (entry.isIntersecting) {
+//           setIsVisible(true);
+//         }
+//       },
+//       { threshold: 0.1, rootMargin: '-50px' }
+//     );
+
+//     observer.observe(node);
+
+//     return () => {
+//       observer.unobserve(node); // 👈 safe cleanup
+//       observer.disconnect();
+//     };
+//   }, []);
+
+//   return [ref, isVisible];
+// };
+
+  // return [ref, isVisible];
 };
 
 // Animated Section Component

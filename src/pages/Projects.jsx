@@ -1,35 +1,35 @@
 import React, { useState } from 'react';
-import { Camera, X } from 'lucide-react';
+import { Camera } from 'lucide-react';
 
 const CATEGORY_FILTERS = ['All', 'Residential', 'Commercial', 'Vehicle'];
 
 const Projects = ({ projects, setProjects, isAdmin }) => {
-  const [showForm, setShowForm] = useState(false);
+  // const [showForm, setShowForm] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All');
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    category: '',
-    status: 'Completed',
-  });
+  // const [formData, setFormData] = useState({
+  //   title: '',
+  //   description: '',
+  //   category: '',
+  //   status: 'Completed',
+  // });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newProject = {
-      id: Date.now(),
-      ...formData,
-      date: new Date().toLocaleDateString(),
-    };
-    setProjects([...projects, newProject]);
-    setFormData({ title: '', description: '', category: '', status: 'Completed' });
-    setShowForm(false);
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const newProject = {
+  //     id: Date.now(),
+  //     ...formData,
+  //     date: new Date().toLocaleDateString(),
+  //   };
+  //   setProjects([...projects, newProject]);
+  //   setFormData({ title: '', description: '', category: '', status: 'Completed' });
+  //   setShowForm(false);
+  // };
 
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this project?')) {
-      setProjects(projects.filter((p) => p.id !== id));
-    }
-  };
+  // const handleDelete = (id) => {
+  //   if (window.confirm('Are you sure you want to delete this project?')) {
+  //     setProjects(projects.filter((p) => p.id !== id));
+  //   }
+  // };
 
   const filteredProjects =
     activeFilter === 'All'
