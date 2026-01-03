@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { 
   Award, 
+  Users, 
+  CheckCircle, 
   ArrowRight, 
   ArrowDown,
   Zap,
@@ -90,7 +92,8 @@ const useScrollAnimation = () => {
     return () => {
       observer.unobserve(element);
     };
-  }, []); // dependency array stays empty — no external values used
+  }, []);
+
   return [ref, isVisible];
 };
 
