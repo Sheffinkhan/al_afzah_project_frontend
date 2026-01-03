@@ -13,7 +13,7 @@ import Contact from "./pages/Contact";
 import { useState } from "react";
 
 const App = () => {
-  const [isAdmin, setIsAdmin] = useState(true);
+  // const [isAdmin, setIsAdmin] = useState(true);
 
   const [projects, setProjects] = useState([
     {
@@ -61,7 +61,7 @@ const App = () => {
             <Projects
               projects={projects}
               setProjects={setProjects}
-              isAdmin={isAdmin}
+              // isAdmin={isAdmin}
             />
           }
         />
@@ -71,7 +71,7 @@ const App = () => {
             <Clients
               clients={clients}
               setClients={setClients}
-              isAdmin={isAdmin}
+              // isAdmin={isAdmin}
             />
           }
         />
