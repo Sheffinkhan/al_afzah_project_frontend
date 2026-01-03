@@ -1,23 +1,105 @@
-import React, { useState } from "react";
-import { CheckCircle, ChevronDown, ChevronUp } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import { CheckCircle, ChevronDown, ChevronUp, Zap, Droplets, Wind, Flame, Building2, Wrench, ArrowRight, Sparkles } from "lucide-react";
+
+// Import service images
+import serviceElectrical from '../assets/service-electrical.jpg';
+import servicePlumbing from '../assets/service-plumbing.jpg';
+import serviceHvac from '../assets/service-hvac.jpg';
+import serviceFire from '../assets/service-fire.jpg';
+import serviceCivil from '../assets/service-civil.jpg';
+import serviceMaintenance from '../assets/service-maintenance.jpg';
+
+// Custom hook for scroll animations
+const useScrollAnimation = () => {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target); // optional: animate once
+        }
+      },
+      { threshold: 0.1, rootMargin: '-50px' }
+    );
+
+    observer.observe(element);
+
+    return () => {
+      observer.unobserve(element);
+    };
+  }, []);
+
+  return [ref, isVisible];
+};
+
+// Animated Section Component
+const AnimatedSection = ({ children, className = '', delay = 0 }) => {
+  const [ref, isVisible] = useScrollAnimation();
+  
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-1000 ease-out ${className}`}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
+        transitionDelay: `${delay}ms`
+      }}
+    >
+      {children}
+    </div>
+  );
+};
 
 const services = [
-  "Fire Alarm & Fire Fighting Works",
-  "Annual Building Maintenance",
-  "HVAC System Works",
-  "Materials Supply",
-  "Plumbing & Drainage Works",
-  "MEP Design & Drafting",
-  "ELV & Control System Works",
-  "Electrical Works",
-  "Cleaning & Soft Services",
-  "Civil & Fitout Works",
+  { 
+    icon: Zap, 
+    title: 'Electrical Works', 
+    description: 'Complete electrical installations, LV systems, UPS, transformers, and ELV solutions',
+    image: serviceElectrical
+  },
+  { 
+    icon: Droplets, 
+    title: 'Plumbing & Drainage', 
+    description: 'Expert plumbing, drainage systems, water treatment, and sanitary installations',
+    image: servicePlumbing
+  },
+  { 
+    icon: Wind, 
+    title: 'HVAC Systems', 
+    description: 'Heating, ventilation, air conditioning, and building management systems',
+    image: serviceHvac
+  },
+  { 
+    icon: Flame, 
+    title: 'Fire Fighting', 
+    description: 'Fire alarm systems, sprinklers, FM200, and emergency response solutions',
+    image: serviceFire
+  },
+  { 
+    icon: Building2, 
+    title: 'Civil & Fitout', 
+    description: 'Construction, interior fitout, flooring, partitions, and finishing works',
+    image: serviceCivil
+  },
+  { 
+    icon: Wrench, 
+    title: 'Maintenance', 
+    description: 'Preventive and corrective maintenance for all building systems',
+    image: serviceMaintenance
+  },
 ];
 
 const serviceDetails = [
   {
     title: "Design & Engineering",
-    description: "AL AFZAH TRADING, CONTRACTING & CLEANING W.L.L has a separate team for providing drafting, designing, preparing shop drawings, as-built drawings etc. We also provide Engineering calculations and submittals for products & services needed for building construction and maintenance.",
+    description: "AL AFZAH TRADING, CONTRACTING & CLEANING W.L.L has a separate team for providing drafting, designing, preparing shop drawings, as-built drawings etc.",
     items: [
       "Heat Load Calculation",
       "ESP Calculation",
@@ -31,22 +113,21 @@ const serviceDetails = [
   },
   {
     title: "Electrical System",
-    description: "We perform specialized construction and industrial electrical work related to design, installation and maintenance of Electrical systems. Our work includes all labor, equipment, supplies and materials and performing all operations necessary to complete the installation of an Electrical system as indicated on the plans.",
+    description: "We perform specialized construction and industrial electrical work related to design, installation and maintenance of Electrical systems.",
     items: [
       "LV: Small Power - Switch/Socket/Isolator",
       "Electrical Panel - LV/CUTOUT/MSB/SMSB/BD/MCC/ATS Panel",
       "UPS & Transformers",
-      "Cabling & Containments (Conduits, Cable Tray, Trunking)",
+      "Cabling & Containments",
       "Internal & External Lighting",
-      "ELV: CCTV & Security Systems, PAVA, Access Control",
+      "ELV: CCTV & Security Systems",
       "Fire Alarm System & FO Cabling",
       "Building Management Systems (BMS)",
-      "Kahramaa Approval",
     ],
   },
   {
     title: "Fire Alarm & Fire Fighting",
-    description: "We perform Supply, Installation, Testing and Commissioning of Fire Sprinklers, fire hose reels, landing valves, pump sets, piping with valves & accessories, FM200, Deluge systems, etc. Supply, Installation, Testing and commissioning of Fire Alarm & Central Emergency and Exit Systems. It also includes preventive maintenance, sensitivity testing and emergency services as and when required.",
+    description: "Supply, Installation, Testing and Commissioning of Fire Sprinklers, fire hose reels, landing valves, pump sets, FM200, Deluge systems.",
     items: [
       "Fire Sprinklers & Hose Reels",
       "Landing Valves & Pump Sets",
@@ -58,47 +139,35 @@ const serviceDetails = [
     ],
   },
   {
-    title: "Data, CCTV & Access Control",
-    description: "We perform Supply, Installation, Testing and Commissioning of Data, Telephone (Analogue/IP), CCTV, Access Control systems. It also includes preventive maintenance, sensitivity testing and emergency services as and when required.",
-    items: [
-      "Data Network Systems",
-      "Telephone Systems (Analogue/IP)",
-      "CCTV Surveillance",
-      "Access Control Systems",
-      "Preventive Maintenance",
-      "Emergency Services",
-    ],
-  },
-  {
     title: "HVAC System",
-    description: "Our services include Heat Load Calculation, selection of equipment, Design and Energy Conservation in terms of savings in power, building automation (BMS), etc. AC system consists of DX Type, Chilled Water system viz: Reciprocating Screw Chillers & Centrifugal Chillers in the range of 100-3500 TR central plants.",
+    description: "Heat Load Calculation, selection of equipment, Design and Energy Conservation including AC systems from 100-3500 TR central plants.",
     items: [
       "Chilled Water System",
       "Piping Network",
-      "Equipment: AHU, Package Unit, FCU, Split Units",
-      "Ventilation: Fresh Air, Extract & Exhaust Fans",
+      "Equipment: AHU, Package Unit, FCU",
+      "Ventilation Systems",
       "Staircase Pressurization",
-      "Ducting & Accessories - GI/PI",
+      "Ducting & Accessories",
       "Smoke Management Systems",
       "Air & Water Balancing",
     ],
   },
   {
     title: "Plumbing & Drainage",
-    description: "We provide labor, materials, tools, equipment and miscellaneous items required to complete the plumbing works as per the plan in full. Underground/Aboveground Drainage Systems including pipes, fittings, floor drains, cleanouts, rain water outlets, catchment basins and channel gratings.",
+    description: "Complete plumbing works including Underground/Aboveground Drainage Systems, pipes, fittings, floor drains, and water systems.",
     items: [
       "Underground/Aboveground Drainage",
-      "Sewage & Storm Water Lifting Station",
-      "Domestic Cold & Hot Water Systems",
+      "Sewage & Storm Water Lifting",
+      "Domestic Cold & Hot Water",
       "Water Transfer & Booster Pumps",
-      "Water Heaters (Central & Domestic)",
+      "Water Heaters",
       "Water Filtration & Treatment",
       "Sanitary Fixtures Installation",
     ],
   },
   {
     title: "Civil & Fit-out Works",
-    description: "Since the booming has begun, Qatar has been rapidly changing and adding more roads, highways and townships every day. We undertake outdoor civil & structural maintenance services. Road maintenance services starting from road paving, landscaping, obstruction clearance, patch works.",
+    description: "Outdoor civil & structural maintenance services, road maintenance, landscaping, and interior finishing works.",
     items: [
       "Block Work & Plaster Work",
       "Concrete Work & Foundations",
@@ -111,9 +180,9 @@ const serviceDetails = [
   },
   {
     title: "Cleaning & Soft Services",
-    description: "At AL AFZAH GROUP we understand the science behind the relationship between workplace hygiene and employee health, safety, and wellness. We bring to organisations science-based cleaning services aimed at keeping their employees safe and protected against infectious diseases.",
+    description: "Science-based cleaning services aimed at keeping employees safe and protected against infectious diseases.",
     items: [
-      "Housekeeping & Cleaning Services",
+      "Housekeeping & Cleaning",
       "Hygiene & Janitorial Services",
       "Post Construction Cleaning",
       "Deep Cleaning",
@@ -124,143 +193,215 @@ const serviceDetails = [
   },
 ];
 
-const ServiceCard = ({ service }: { service: typeof serviceDetails[0] }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
+const ServiceCard = ({ service, isExpanded, onToggle }) => {
   return (
-    <div className="bg-zinc-900 border border-zinc-800 hover:border-red-600/50 rounded-xl transition-all duration-300 overflow-hidden">
+    <div className="bg-gray-900 border border-gray-800 hover:border-red-600/50 rounded-2xl transition-all duration-300 overflow-hidden">
       <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full p-6 text-left flex items-center justify-between gap-4"
+        onClick={onToggle}
+        className="w-full p-6 text-left flex items-center justify-between gap-4 group"
       >
-        <h3 className="text-lg md:text-xl font-semibold text-white">{service.title}</h3>
-        {isExpanded ? (
-          <ChevronUp className="text-red-500 flex-shrink-0" size={24} />
-        ) : (
-          <ChevronDown className="text-red-500 flex-shrink-0" size={24} />
-        )}
+        <h3 className="text-lg md:text-xl font-semibold text-white group-hover:text-red-400 transition-colors">{service.title}</h3>
+        <div className="w-10 h-10 bg-red-600/10 rounded-lg flex items-center justify-center group-hover:bg-red-600/20 transition-colors">
+          {isExpanded ? (
+            <ChevronUp className="text-red-500" size={20} />
+          ) : (
+            <ChevronDown className="text-red-500" size={20} />
+          )}
+        </div>
       </button>
-      
-      {isExpanded && (
-        <div className="px-6 pb-6 animate-fade-in">
-          <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-4">
+
+      <div
+        className={`overflow-hidden transition-all duration-500 ${
+          isExpanded ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
+        <div className="px-6 pb-6">
+          <p className="text-gray-400 leading-relaxed mb-6">
             {service.description}
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {service.items.map((item, idx) => (
-              <div key={idx} className="flex items-start gap-2">
+              <div key={idx} className="flex items-start gap-3 p-3 bg-gray-800/50 rounded-lg">
                 <CheckCircle className="text-red-500 flex-shrink-0 mt-0.5" size={16} />
                 <span className="text-gray-300 text-sm">{item}</span>
               </div>
             ))}
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
 
 const Services = () => {
+  const [expandedIndex, setExpandedIndex] = useState(null);
+
   return (
-    <div className="pt-16 bg-black text-gray-100">
-      {/* Hero */}
-      <section className="py-16 bg-gradient-to-r from-black via-red-900/40 to-black">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-wide">
-            Our Services
-          </h1>
-          <p className="text-gray-300 text-lg md:text-xl leading-relaxed">
-            Being one of the leading companies in Qatar, we offer comprehensive
-            MEP & Fit-out services. Our experienced technical teams deliver
-            complete mechanical, electrical, and plumbing solutions — ensuring
-            high-quality execution and timely completion of every project.
-          </p>
+    <div className="min-h-screen bg-gray-950 text-gray-100">
+      {/* Hero Section */}
+      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(220,38,38,0.1),transparent_50%)]" />
+        </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-red-600/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-red-600/5 rounded-full blur-3xl" />
+        
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+            backgroundSize: '50px 50px'
+          }} />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 text-center px-6 py-20">
+          <AnimatedSection>
+            <span className="inline-block px-4 py-2 bg-red-600/20 border border-red-600/30 rounded-full text-red-400 text-sm font-medium mb-6">
+              <Sparkles className="w-4 h-4 inline mr-2" />
+              What We Do
+            </span>
+          </AnimatedSection>
+          
+          <AnimatedSection delay={100}>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
+              Our{' '}
+              <span className="bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
+                Services
+              </span>
+            </h1>
+          </AnimatedSection>
+          
+          <AnimatedSection delay={200}>
+            <p className="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto">
+              Being one of the leading companies in Qatar, we offer comprehensive
+              MEP & Fit-out services with experienced technical teams delivering
+              complete solutions.
+            </p>
+          </AnimatedSection>
         </div>
       </section>
 
-      {/* Word-Sun Animation */}
-      <section className="max-w-6xl mx-auto px-6 py-20 relative overflow-hidden">
-        <div className="relative flex items-center justify-center h-[560px] md:h-[640px]">
-          {/* Center */}
-          <div className="z-20 border-2 border-red-600 bg-zinc-900 px-10 py-6 rounded-full text-center shadow-red-800/40 shadow-lg">
-            <h2 className="text-2xl md:text-3xl font-bold text-white tracking-wide">
-              AL-AFZAH GROUP WLL
-            </h2>
-            <p className="text-gray-300 mt-2 text-sm md:text-base">
-              MEP • Civil • Fit-out • Maintenance
-            </p>
-          </div>
+      {/* Services Grid Section */}
+      <section className="py-20 md:py-32 px-6 md:px-12 lg:px-20">
+        <div className="max-w-7xl mx-auto">
+          <AnimatedSection>
+            <div className="text-center mb-16">
+              <span className="inline-block px-3 py-1 bg-red-600/10 border border-red-600/20 rounded-full text-red-400 text-sm font-medium mb-4">
+                Core Services
+              </span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+                Comprehensive <span className="text-red-500">Solutions</span>
+              </h2>
+            </div>
+          </AnimatedSection>
 
-          {/* Orbit container */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="relative w-[520px] h-[520px] md:w-[650px] md:h-[650px] rounded-full border border-red-600/30">
-              {services.map((item, index) => {
-                const angle = (index / services.length) * 2 * Math.PI;
-                const radius = 175;
-                const yShift = 10;
-                const x = 50 + (radius * Math.cos(angle)) / 3.5;
-                const y = 50 + (radius * Math.sin(angle)) / 3.5 + yShift;
-
-                return (
-                  <div key={index}>
-                    {/* Connecting line */}
-                    <div
-                      className="absolute left-1/2 top-1/2 origin-left transition-all duration-300"
-                      style={{
-                        width: `${radius + 20}px`,
-                        transform: `rotate(${(angle * 180) / Math.PI}deg)`,
-                        borderTop: "1px dashed rgba(255,0,0,0.35)",
-                      }}
-                    />
-
-                    {/* Label */}
-                    <div
-                      className="absolute -translate-x-1/2 -translate-y-1/2 group pointer-events-auto"
-                      style={{ top: `${y}%`, left: `${x}%` }}
-                    >
-                      <div className="bg-zinc-900 border border-zinc-800 hover:border-red-600 px-4 py-2 rounded-lg shadow-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-red-700/40 relative">
-                        <span className="text-sm md:text-base font-medium whitespace-nowrap">
-                          {item}
-                        </span>
-                        <span className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 blur-md transition duration-300 bg-red-600/20" />
-                      </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service, i) => (
+              <AnimatedSection key={i} delay={i * 100}>
+                <div className="group relative h-80 rounded-2xl overflow-hidden cursor-pointer">
+                  {/* Background Image */}
+                  <img 
+                    src={service.image} 
+                    alt={service.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  
+                  {/* Overlays */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/60 to-transparent" />
+                  <div className="absolute inset-0 bg-red-600/0 group-hover:bg-red-600/20 transition-colors duration-500" />
+                  
+                  {/* Content */}
+                  <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                    {/* Icon */}
+                    <div className="w-14 h-14 bg-red-600/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:bg-red-600 transition-all duration-500">
+                      <service.icon className="w-7 h-7 text-white" />
+                    </div>
+                    
+                    {/* Title */}
+                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-red-100 transition-colors">
+                      {service.title}
+                    </h3>
+                    
+                    {/* Description - Revealed on Hover */}
+                    <p className="text-gray-400 text-sm leading-relaxed transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                      {service.description}
+                    </p>
+                    
+                    {/* Arrow */}
+                    <div className="absolute top-6 right-6 w-10 h-10 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:bg-red-600">
+                      <ArrowRight className="w-5 h-5 text-white" />
                     </div>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              </AnimatedSection>
+            ))}
           </div>
-        </div>
-
-        {/* Mobile fallback grid */}
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:hidden">
-          {services.map((s, i) => (
-            <div
-              key={i}
-              className="bg-zinc-900 p-5 rounded-xl border border-zinc-800 hover:border-red-600 transition shadow hover:shadow-red-600/20 flex gap-3"
-            >
-              <CheckCircle className="text-red-500 mt-1" size={22} />
-              <span className="text-gray-200">{s}</span>
-            </div>
-          ))}
         </div>
       </section>
 
       {/* Detailed Services Section */}
-      <section className="max-w-6xl mx-auto px-6 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Explore Our Expertise
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Click on any service below to learn more about our capabilities and offerings.
-          </p>
-        </div>
+      <section className="py-20 px-6 md:px-12 lg:px-20 bg-gray-900/50">
+        <div className="max-w-5xl mx-auto">
+          <AnimatedSection>
+            <div className="text-center mb-16">
+              <span className="inline-block px-3 py-1 bg-red-600/10 border border-red-600/20 rounded-full text-red-400 text-sm font-medium mb-4">
+                Explore In Detail
+              </span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                Our <span className="text-red-500">Expertise</span>
+              </h2>
+              <p className="text-gray-400 max-w-2xl mx-auto">
+                Click on any service below to learn more about our capabilities and offerings.
+              </p>
+            </div>
+          </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {serviceDetails.map((service, index) => (
-            <ServiceCard key={index} service={service} />
-          ))}
+          <div className="space-y-4">
+            {serviceDetails.map((service, index) => (
+              <AnimatedSection key={index} delay={index * 50}>
+                <ServiceCard 
+                  service={service} 
+                  isExpanded={expandedIndex === index}
+                  onToggle={() => setExpandedIndex(expandedIndex === index ? null : index)}
+                />
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 md:py-32 px-6 md:px-12 lg:px-20">
+        <div className="max-w-4xl mx-auto">
+          <AnimatedSection>
+            <div className="relative p-10 md:p-16 bg-gradient-to-br from-red-600 to-red-700 rounded-3xl overflow-hidden text-center">
+              {/* Decorative Elements */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/20 rounded-full blur-2xl" />
+              
+              <div className="relative z-10">
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                  Ready to Start Your Project?
+                </h3>
+                <p className="text-red-100 text-lg mb-8 max-w-xl mx-auto">
+                  Let's discuss how we can bring your vision to life with quality 
+                  construction and MEP solutions.
+                </p>
+                <a
+                  href="/contact"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-white text-red-600 font-semibold rounded-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+                >
+                  Get In Touch
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
     </div>
