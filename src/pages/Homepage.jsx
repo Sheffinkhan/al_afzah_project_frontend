@@ -74,23 +74,23 @@ const useScrollAnimation = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          observer.unobserve(entry.target); // optional: animate once
         }
       },
       { threshold: 0.1, rootMargin: '-50px' }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    observer.observe(element);
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
+      observer.unobserve(element);
     };
   }, []);
 
@@ -197,23 +197,28 @@ const Homepage = ({ setCurrentPage }) => {
 
         {/* Background Images with Crossfade */}
         <div className="absolute inset-0">
-          {heroImages.map((img, index) => (
-            <div
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-2000 ease-in-out ${
-                currentImageIndex === index ? 'opacity-100' : 'opacity-0'
-              }`}
-              style={{
-                transform: `translateY(${scrollY * 0.3}px) scale(${1 + scrollY * 0.0002})`
-              }}
-            >
-              <img
-                src={img}
-                alt={`Hero background ${index + 1}`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ))}
+{heroImages.map((img, index) => (
+  <div
+    key={index}
+    className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+      currentImageIndex === index ? 'opacity-100' : 'opacity-0'
+    }`}
+    style={{
+      transform: `
+        translateY(${scrollY * 0.3}px)
+        scale(${isTransitioning ? 1.08 : 1})
+      `,
+      filter: isTransitioning ? 'blur(2px)' : 'blur(0px)'
+    }}
+  >
+    <img
+      src={img}
+      alt={`Hero background ${index + 1}`}
+      className="w-full h-full object-cover"
+    />
+  </div>
+))}
+
           
           {/* Overlay Gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-gray-900/70 via-gray-900/60 to-gray-900/90" />
