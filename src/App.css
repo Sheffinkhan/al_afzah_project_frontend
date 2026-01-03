@@ -160,3 +160,19 @@
     font-size: 24px;
   }
 };
+
+@keyframes slowspin {
+  0%   { transform: rotate(0deg); }
+  40%  { transform: rotate(4deg); }
+  60%  { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 22s linear infinite;
+}

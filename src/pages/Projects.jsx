@@ -1,142 +1,106 @@
 import React, { useState } from 'react';
-import { Camera, X } from 'lucide-react';
+import { Camera } from 'lucide-react';
 
-const Projects = ({ projects, setProjects, isAdmin }) => {
-  const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    category: '',
-    status: 'Completed'
-  });
+const CATEGORY_FILTERS = ['All', 'Residential', 'Commercial', 'Vehicle'];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newProject = {
-      id: Date.now(),
-      ...formData,
-      date: new Date().toLocaleDateString()
-    };
-    setProjects([...projects, newProject]);
-    setFormData({ title: '', description: '', category: '', status: 'Completed' });
-    setShowForm(false);
-  };
+const Projects = ({ projects, isAdmin }) => {
+  const [activeFilter, setActiveFilter] = useState('All');
 
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this project?')) {
-      setProjects(projects.filter(p => p.id !== id));
-    }
-  };
+  const filteredProjects =
+    activeFilter === 'All'
+      ? projects
+      : projects.filter((p) => p.category.toLowerCase().includes(activeFilter.toLowerCase()));
 
   return (
-    <div className="pt-16">
-      <div className="bg-blue-600 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold text-center">Our Projects</h1>
-          <p className="text-center mt-4 text-xl">Showcasing our commitment to excellence</p>
+    <div className="pt-16 bg-black min-h-screen text-white">
+      {/* Hero */}
+      <div className="bg-gradient-to-r from-black via-red-800 to-black py-16 border-b border-red-700/40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-wide uppercase">
+            Our <span className="text-red-500">Projects</span>
+          </h1>
+          <p className="mt-4 text-lg text-gray-200">
+            Showcasing our commitment to precision and craftsmanship.
+          </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {/* Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Admin Actions */}
         {isAdmin && (
-          <div className="mb-8">
+          <div className="mb-8 flex justify-between items-center">
+            
+          </div>
+        )}
+
+        
+
+        {/* Filters */}
+        <div className="flex flex-wrap items-center gap-4 mb-10 border-b border-zinc-800 pb-4">
+          {CATEGORY_FILTERS.map((filter) => (
             <button
-              onClick={() => setShowForm(!showForm)}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+              key={filter}
+              onClick={() => setActiveFilter(filter)}
+              className={`text-sm uppercase tracking-wide transition-colors pb-1
+                ${activeFilter === filter
+                  ? 'text-red-500 border-b-2 border-red-500'
+                  : 'text-gray-400 hover:text-red-400'
+                }`}
             >
-              {showForm ? 'Cancel' : '+ Add New Project'}
+              {filter}
             </button>
-          </div>
-        )}
-
-        {showForm && (
-          <div className="bg-white border rounded-lg p-6 mb-8 shadow-lg">
-            <h3 className="text-xl font-semibold mb-4">Add New Project</h3>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">Project Title</label>
-                <input
-                  type="text"
-                  required
-                  value={formData.title}
-                  onChange={(e) => setFormData({...formData, title: e.target.value})}
-                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Description</label>
-                <textarea
-                  required
-                  value={formData.description}
-                  onChange={(e) => setFormData({...formData, description: e.target.value})}
-                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  rows="3"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Category</label>
-                <input
-                  type="text"
-                  required
-                  value={formData.category}
-                  onChange={(e) => setFormData({...formData, category: e.target.value})}
-                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="e.g., Residential, Commercial"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Status</label>
-                <select
-                  value={formData.status}
-                  onChange={(e) => setFormData({...formData, status: e.target.value})}
-                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option>Completed</option>
-                  <option>In Progress</option>
-                  <option>Upcoming</option>
-                </select>
-              </div>
-              <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
-                Add Project
-              </button>
-            </form>
-          </div>
-        )}
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <div key={project.id} className="border rounded-lg overflow-hidden hover:shadow-xl transition transform hover:-translate-y-1">
-              <div className="bg-gray-200 h-48 flex items-center justify-center">
-                <Camera size={64} className="text-gray-400" />
-              </div>
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-semibold">{project.title}</h3>
-                  {isAdmin && (
-                    <button
-                      onClick={() => handleDelete(project.id)}
-                      className="text-red-600 hover:text-red-800 transition"
-                    >
-                      <X size={20} />
-                    </button>
-                  )}
-                </div>
-                <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded mb-2">
-                  {project.category}
-                </span>
-                <p className="text-gray-600 mb-2">{project.description}</p>
-                <div className="flex justify-between items-center text-sm text-gray-500">
-                  <span>{project.status}</span>
-                  <span>{project.date}</span>
-                </div>
-              </div>
-            </div>
           ))}
         </div>
 
-        {projects.length === 0 && (
+        {/* Grid */}
+        {filteredProjects.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProjects.map((project) => (
+              <div
+                key={project.id}
+                className="bg-zinc-900 border border-zinc-800/80 rounded-lg overflow-hidden 
+                           hover:border-red-600/80 hover:shadow-2xl hover:shadow-red-900/40
+                           transition transform hover:-translate-y-1"
+              >
+                <div className="bg-black h-48 flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
+                  <Camera size={56} className="text-zinc-600 relative z-10" />
+                  <span className="absolute top-3 left-3 text-xs bg-red-600/90 px-3 py-1 rounded-full uppercase tracking-wide">
+                    {project.status}
+                  </span>
+                </div>
+                <div className="p-6">
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-lg font-semibold uppercase tracking-wide">
+                      {project.title}
+                    </h3>
+                    
+                  </div>
+
+                  <span className="inline-block text-xs uppercase tracking-wide bg-red-900/40 text-red-300 px-3 py-1 rounded-full mb-3">
+                    {project.category}
+                  </span>
+
+                  <p className="text-sm text-gray-300 mb-4 leading-relaxed">
+                    {project.description}
+                  </p>
+
+                  <div className="flex justify-between items-center text-xs text-gray-500">
+                    <span>{project.date}</span>
+                    {/* Placeholder for “View Details” or location, etc. */}
+                    <span className="text-red-400">View details</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
           <div className="text-center py-12 text-gray-500">
-            <p>No projects added yet. {isAdmin && 'Click "Add New Project" to get started.'}</p>
+            <p>
+              No projects available in this filter.
+              {isAdmin && ' Add a project above to get started.'}
+            </p>
           </div>
         )}
       </div>

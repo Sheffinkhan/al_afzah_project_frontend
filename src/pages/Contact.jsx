@@ -1,120 +1,126 @@
-import React, { useState } from 'react';
-import { MapPin, Phone, Mail } from 'lucide-react';
+import React from "react";
+import { Mail, Phone, MapPin, Globe, Send } from "lucide-react";
 
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert('Thank you for your message! We will get back to you soon.');
-    setFormData({ name: '', email: '', phone: '', message: '' });
-  };
-
+export default function ContactPage() {
   return (
-    <div className="pt-16">
-      <div className="bg-blue-600 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold text-center">Contact Us</h1>
-          <p className="text-center mt-4 text-xl">Get in touch with our team</p>
-        </div>
-      </div>
+    <div className="min-h-screen bg-black text-white">
+      {/* Hero / Heading */}
+      <section className="max-w-7xl mx-auto px-6 pt-20 pb-10">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-wide text-center">
+          Contact Us
+        </h1>
+        <div className="h-1 w-24 bg-red-600 rounded-full mx-auto mt-4"></div>
+        <p className="text-gray-400 text-center mt-6 max-w-2xl mx-auto">
+          We’d love to hear from you. Reach out to us for project inquiries,
+          partnerships, or general questions — our team will get back to you as
+          soon as possible.
+        </p>
+      </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <div>
-            <h2 className="text-2xl font-bold mb-6">Send us a Message</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">Name</label>
-                <input
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Email</label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Phone</label>
-                <input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Message</label>
-                <textarea
-                  required
-                  value={formData.message}
-                  onChange={(e) => setFormData({...formData, message: e.target.value})}
-                  className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  rows="5"
-                />
-              </div>
-              <button type="submit" className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 w-full transition">
-                Send Message
-              </button>
-            </form>
+      {/* Main grid */}
+      <section className="max-w-7xl mx-auto px-6 pb-24 grid gap-10 md:grid-cols-2">
+        {/* Brand Card */}
+        <div className="relative bg-zinc-900 rounded-2xl p-8 shadow-xl overflow-hidden group">
+          {/* animated border */}
+          <div className="absolute inset-0 rounded-2xl pointer-events-none">
+            <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300 blur-xl bg-red-600/10"></div>
           </div>
 
-          {/* Contact Information */}
-          <div>
-            <h2 className="text-2xl font-bold mb-6">Contact Information</h2>
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <MapPin className="text-blue-600 flex-shrink-0" size={24} />
-                <div>
-                  <h3 className="font-semibold mb-1">Address</h3>
-                  <p className="text-gray-600">Dubai, United Arab Emirates</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <Phone className="text-blue-600 flex-shrink-0" size={24} />
-                <div>
-                  <h3 className="font-semibold mb-1">Phone</h3>
-                  <p className="text-gray-600">+971 XX XXX XXXX</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <Mail className="text-blue-600 flex-shrink-0" size={24} />
-                <div>
-                  <h3 className="font-semibold mb-1">Email</h3>
-                  <p className="text-gray-600">info@alafzah.com</p>
-                </div>
-              </div>
+          <div className="flex flex-col items-center gap-4">
+            <div className="bg-black/70 border border-zinc-800 rounded-xl p-6 transition-transform duration-300 group-hover:-translate-y-1">
+              <img
+                src="/media/al afzah logo.png"
+                alt="AL AFZAH GROUP"
+                className="w-40 h-auto object-contain"
+              />
             </div>
 
-            <div className="mt-8 p-6 bg-blue-50 rounded-lg">
-              <h3 className="font-semibold mb-2">Business Hours</h3>
-              <p className="text-gray-700">Monday - Friday: 8:00 AM - 6:00 PM</p>
-              <p className="text-gray-700">Saturday: 9:00 AM - 2:00 PM</p>
-              <p className="text-gray-700">Sunday: Closed</p>
+            <h3 className="text-xl font-semibold text-red-500 tracking-wide mt-4">
+              AL AFZAH GROUP TRADING, CONTRACTING & CLEANING W.L.L
+            </h3>
+
+            <div className="grid gap-4 mt-4 w-full">
+              <div className="flex gap-3 items-start text-gray-300">
+                <MapPin className="text-red-500" />
+                <p>
+                  Building No.94, Othman Bin Affan Street 180, <br /> Doha, Qatar
+                </p>
+              </div>
+
+              <div className="flex gap-3 items-start text-gray-300">
+                <Phone className="text-red-500" />
+                <p>
+                  +974 66908916 <br /> +974 30806490
+                </p>
+              </div>
+
+              <div className="flex gap-3 items-start text-gray-300">
+                <Mail className="text-red-500" />
+                <p>Info@al-afzahgroup.com</p>
+              </div>
+
+              <div className="flex gap-3 items-start text-gray-300">
+                <Globe className="text-red-500" />
+                <p>www.al-afzahgroup.com</p>
+              </div>
+
+              <div className="mt-4 text-sm text-gray-500 uppercase tracking-wider">
+                PO BOX NO: 36258
+              </div>
             </div>
           </div>
         </div>
-      </div>
+
+        {/* Contact Form */}
+        <div className="bg-zinc-900 rounded-2xl p-8 shadow-xl">
+          <h3 className="text-2xl font-semibold mb-6">Send us a message</h3>
+
+          <form className="grid gap-5">
+            <div>
+              <label className="text-sm text-gray-400">Your Name</label>
+              <input
+                type="text"
+                className="mt-1 w-full bg-black/60 border border-zinc-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-600"
+                placeholder="Enter your name"
+              />
+            </div>
+
+            <div>
+              <label className="text-sm text-gray-400">Email</label>
+              <input
+                type="email"
+                className="mt-1 w-full bg-black/60 border border-zinc-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-600"
+                placeholder="Enter your email"
+              />
+            </div>
+
+            <div>
+              <label className="text-sm text-gray-400">Phone</label>
+              <input
+                type="text"
+                className="mt-1 w-full bg-black/60 border border-zinc-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-600"
+                placeholder="Enter phone number"
+              />
+            </div>
+
+            <div>
+              <label className="text-sm text-gray-400">Message</label>
+              <textarea
+                rows={5}
+                className="mt-1 w-full bg-black/60 border border-zinc-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-600"
+                placeholder="Type your message here..."
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 transition rounded-xl py-3 font-medium shadow-lg shadow-red-900/20"
+            >
+              Send Message <Send size={16} />
+            </button>
+          </form>
+        </div>
+      </section>
     </div>
   );
-};
-
-export default Contact;
+}

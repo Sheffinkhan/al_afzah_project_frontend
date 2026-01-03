@@ -1,3 +1,64 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.border-travel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.border-travel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+
+  background:
+    linear-gradient(90deg, transparent, red, transparent) top / 300% 2px no-repeat,
+    linear-gradient(90deg, transparent, red, transparent) bottom / 300% 2px no-repeat,
+    linear-gradient(0deg, transparent, red, transparent) left / 2px 300% no-repeat,
+    linear-gradient(0deg, transparent, red, transparent) right / 2px 300% no-repeat;
+
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+
+.border-travel:hover::before {
+  opacity: 1;
+  animation: border-walk 2s linear infinite;
+}
+
+@keyframes border-walk {
+  0% {
+    background-position:
+      0% 0%,
+      100% 100%,
+      0% 0%,
+      100% 100%;
+  }
+  50% {
+    background-position:
+      100% 0%,
+      0% 100%,
+      0% 100%,
+      100% 0%;
+  }
+  100% {
+    background-position:
+      0% 0%,
+      100% 100%,
+      0% 0%,
+      100% 100%;
+  }
+}
+
+
+
+

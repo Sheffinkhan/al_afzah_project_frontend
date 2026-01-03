@@ -13,7 +13,6 @@ import {
   Wrench,
   Eye,
   Target,
-  ChevronRight,
   Quote,
   Phone,
   Mail,
