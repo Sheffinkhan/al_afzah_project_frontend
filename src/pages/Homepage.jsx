@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   Award, 
   Users, 
@@ -116,7 +117,9 @@ const AnimatedSection = ({ children, className = '', delay = 0 }) => {
   );
 };
 
-const Homepage = ({ setCurrentPage }) => {
+const Homepage = () => {
+  const navigate = useNavigate();
+
   const [scrollY, setScrollY] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -190,92 +193,91 @@ const Homepage = ({ setCurrentPage }) => {
   return (
     <div className="overflow-hidden">
 
-      {/* ============================================= */}
-      {/* HERO SECTION - With Image Slideshow */}
-      {/* ============================================= */}
+      {/* HERO SECTION */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-
-        {/* Background Images with Crossfade */}
         <div className="absolute inset-0">
           {heroImages.map((img, index) => (
             <div
               key={index}
-              className={`absolute inset-0 transition-opacity duration-2000 ease-in-out ${
-                currentImageIndex === index ? 'opacity-100' : 'opacity-0'
-              }`}
+              className="absolute inset-0 transition-opacity duration-[2000ms] ease-in-out"
               style={{
-                transform: `translateY(${scrollY * 0.3}px) scale(${1 + scrollY * 0.0002})`
+                opacity: currentImageIndex === index ? 1 : 0,
+                zIndex: currentImageIndex === index ? 1 : 0,
               }}
             >
               <img
                 src={img}
                 alt={`Hero background ${index + 1}`}
                 className="w-full h-full object-cover"
+                style={{
+                  transform: `translateY(${scrollY * 0.15}px) scale(${1 + scrollY * 0.0002})`,
+                }}
               />
             </div>
           ))}
-          
-          {/* Overlay Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-900/70 via-gray-900/60 to-gray-900/90" />
-          
-          {/* Animated Gradient Accent */}
-          <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 via-transparent to-red-600/10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-900/70 via-gray-900/50 to-gray-900/90 z-10" />
+          <div 
+            className="absolute inset-0 z-10 transition-opacity duration-1000"
+            style={{
+              background: 'radial-gradient(ellipse at 30% 50%, rgba(220, 38, 38, 0.15) 0%, transparent 60%)',
+              opacity: isTransitioning ? 0.5 : 1,
+            }}
+          />
         </div>
         
-        {/* Decorative Elements */}
-        <div className="absolute right-0 top-1/4 w-px h-32 bg-gradient-to-b from-transparent via-red-500 to-transparent opacity-50" />
-        <div className="absolute right-10 top-1/3 w-px h-48 bg-gradient-to-b from-transparent via-white/30 to-transparent" />
-        <div className="absolute left-10 bottom-1/4 w-20 h-20 border border-red-500/30 rounded-full" />
-        <div className="absolute right-20 bottom-1/3 w-32 h-32 border border-white/10 rounded-full" />
+        <div className="absolute right-0 top-1/4 w-px h-32 bg-gradient-to-b from-transparent via-red-500 to-transparent opacity-50 z-20" />
+        <div className="absolute right-10 top-1/3 w-px h-48 bg-gradient-to-b from-transparent via-white/30 to-transparent z-20" />
+        <div className="absolute left-10 bottom-1/4 w-20 h-20 border border-red-500/30 rounded-full z-20 animate-pulse" />
+        <div className="absolute right-20 bottom-1/3 w-32 h-32 border border-white/10 rounded-full z-20" />
         
-        {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          {/* Logo */}
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-32 md:pt-36">
           <div className="mb-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-            <img src={logo} alt="Al-Afzah Group" className="h-24 md:h-32 mx-auto" />
+            <img 
+              src={logo} 
+              alt="Al-Afzah Group Logo" 
+              className="w-40 h-40 md:w-52 md:h-52 object-contain mx-auto drop-shadow-2xl"
+            />
           </div>
 
-          {/* Tagline */}
-          <div className="mb-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            <span className="inline-block px-6 py-2 bg-red-600/20 backdrop-blur-sm border border-red-500/30 text-white text-sm font-medium tracking-widest uppercase rounded-full">
-              Building Trust With Quality Work
-            </span>
-          </div>
-
-          {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight mb-8 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+          <h1 
+            className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight mb-8 animate-fade-in"
+            style={{ animationDelay: '0.3s' }}
+          >
             <span className="block">Construction</span>
             <span className="block">
-              <span className="text-red-500">&</span> MEP
+              <span className="text-red-500">&amp;</span> MEP
             </span>
             <span className="block">Excellence</span>
           </h1>
 
-          {/* Description */}
-          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in" style={{ animationDelay: '0.7s' }}>
+          <p 
+            className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in"
+            style={{ animationDelay: '0.5s' }}
+          >
             Leading construction and MEP services company in Qatar. 
             Delivering exceptional quality and innovative solutions for over a decade.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.9s' }}>
-            <button
-              onClick={() => setCurrentPage('projects')}
+          <div 
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in"
+            style={{ animationDelay: '0.7s' }}
+          >
+            <Link
+              to="/projects"
               className="group inline-flex items-center justify-center px-8 py-4 bg-red-600 text-white font-semibold rounded-lg transition-all duration-300 hover:bg-red-700 hover:shadow-2xl hover:shadow-red-500/25 hover:-translate-y-1"
             >
               <span>View Our Projects</span>
               <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-            </button>
-            <button
-              onClick={() => setCurrentPage('contact')}
+            </Link>
+            <Link
+              to="/contact"
               className="inline-flex items-center justify-center px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-lg transition-all duration-300 hover:bg-white hover:text-gray-900"
             >
               Get In Touch
-            </button>
+            </Link>
           </div>
 
-          {/* Image Indicators */}
-          <div className="flex justify-center gap-2 mt-12 animate-fade-in" style={{ animationDelay: '1.1s' }}>
+          <div className="flex gap-2 justify-center mb-12">
             {heroImages.map((_, index) => (
               <button
                 key={index}
@@ -290,8 +292,7 @@ const Homepage = ({ setCurrentPage }) => {
             ))}
           </div>
 
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="animate-bounce">
             <div className="flex flex-col items-center gap-2 text-white/60">
               <span className="text-xs tracking-widest uppercase">Scroll</span>
               <ArrowDown className="w-5 h-5" />
@@ -405,7 +406,7 @@ const Homepage = ({ setCurrentPage }) => {
                   </p>
                 </div>
                 <button
-                  onClick={() => setCurrentPage('about')}
+                  onClick={() => navigate('/about')}
                   className="group relative z-10 mt-6 inline-flex items-center gap-2 text-red-500 font-semibold text-sm hover:text-red-400 transition-colors"
                 >
                   <span>Learn More</span>
@@ -454,7 +455,7 @@ const Homepage = ({ setCurrentPage }) => {
                     ))}
                   </div>
                   <button
-                    onClick={() => setCurrentPage('about')}
+                    onClick={() => navigate('/about')}
                     className="mt-8 inline-flex items-center gap-2 px-6 py-3 bg-white text-red-600 font-semibold rounded-lg transition-all duration-300 hover:bg-gray-100 hover:-translate-y-1 hover:shadow-xl"
                   >
                     <span>Discover Our Story</span>
@@ -517,7 +518,7 @@ const Homepage = ({ setCurrentPage }) => {
           {/* CTA */}
           <AnimatedSection delay={600} className="text-center">
             <button
-              onClick={() => setCurrentPage('services')}
+              onClick={() => navigate('/services')}
               className="inline-flex items-center gap-2 px-8 py-4 bg-red-600 text-white font-semibold rounded-lg transition-all duration-300 hover:bg-red-700 hover:shadow-2xl hover:shadow-red-500/25 hover:-translate-y-1"
             >
               <span>Explore All Services</span>
@@ -543,7 +544,7 @@ const Homepage = ({ setCurrentPage }) => {
               </h2>
             </div>
             <button
-              onClick={() => setCurrentPage('projects')}
+              onClick={() => navigate('projects')}
               className="group inline-flex items-center gap-2 text-red-600 font-semibold"
             >
               <span>View All Projects</span>
@@ -555,7 +556,7 @@ const Homepage = ({ setCurrentPage }) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {projects.map((project, i) => (
               <AnimatedSection key={project.id} delay={i * 150}>
-                <div className="group relative h-96 rounded-2xl overflow-hidden cursor-pointer" onClick={() => setCurrentPage('projects')}>
+                <div className="group relative h-96 rounded-2xl overflow-hidden cursor-pointer" onClick={() => navigate('/projects')}>
                   <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent transition-all duration-500 group-hover:via-gray-900/60" />
                   <div className="absolute top-0 left-0 right-0 h-1 bg-red-600 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
@@ -713,7 +714,7 @@ const Homepage = ({ setCurrentPage }) => {
           {/* CTA */}
           <AnimatedSection delay={500} className="text-center mt-12">
             <button
-              onClick={() => setCurrentPage('clients')}
+              onClick={() => navigate('/clients')}
               className="group inline-flex items-center gap-2 text-red-600 font-semibold"
             >
               <span>View All Clients & Partners</span>
@@ -762,7 +763,7 @@ const Homepage = ({ setCurrentPage }) => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
-                  onClick={() => setCurrentPage('contact')}
+                  onClick={() => navigate('/contact')}
                   className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-red-600 text-white font-semibold rounded-xl transition-all duration-300 hover:bg-red-700 hover:shadow-2xl hover:shadow-red-500/25 hover:-translate-y-1"
                 >
                   <span>Get a Free Quote</span>
