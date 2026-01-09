@@ -53,8 +53,8 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Visit Us",
-    lines: ["Building No.94, Othman Bin Affan Street 180", "Doha, Qatar"],
-    extra: "PO BOX NO: 36258"
+    lines: ["Office-04, Floor-01, Building-65", "Al Tawba Street, Muaither"],
+    // extra: "PO BOX NO: 36258"
   },
   {
     icon: Phone,
@@ -299,8 +299,8 @@ const Contact = () => {
               <div className="text-center">
                 <MapPin className="w-16 h-16 text-red-500 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-white mb-2">Our Location</h3>
-                <p className="text-gray-400">Building No.94, Othman Bin Affan Street 180</p>
-                <p className="text-gray-400">Doha, Qatar</p>
+                <p className="text-gray-400">Office-04, Floor-01, Building-65</p>
+                <p className="text-gray-400">Al Tawba Street, Muaither</p>
                 <a
                   href="https://maps.google.com"
                   target="_blank"

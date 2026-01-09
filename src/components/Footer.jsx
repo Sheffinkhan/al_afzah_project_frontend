@@ -27,7 +27,7 @@ const Footer = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
       <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-transparent" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-      
+
       {/* Decorative Elements */}
       <div className="absolute top-20 right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-20 left-10 w-48 h-48 bg-primary/5 rounded-full blur-3xl" />
@@ -38,9 +38,9 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <Link to="/" className="inline-flex items-center gap-3 mb-6 group">
-              <img 
-                src={logo} 
-                alt="Al-Afzah Group" 
+              <img
+                src={logo}
+                alt="Al-Afzah Group"
                 className="w-14 h-14 object-contain transition-transform duration-300 group-hover:scale-105"
               />
               <div>
@@ -154,11 +154,17 @@ const Footer = () => {
               <li>
                 <div className="flex items-start gap-3 text-gray-400 group">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-5 h-5 text-primary" />
+                    <MapPin className="w-6 h-5 text-primary" />
                   </div>
                   <div>
                     <span className="block text-xs text-gray-500 mb-0.5">Location</span>
-                    <span className="text-white">Doha, Qatar</span>
+                    <span className="block text-white whitespace-nowrap">
+                      Office-04, Floor-01, Building-65
+                    </span>
+
+                    <span className="block text-white whitespace-nowrap">
+                      Al Tawba Street, Muaither
+                    </span>
                   </div>
                 </div>
               </li>

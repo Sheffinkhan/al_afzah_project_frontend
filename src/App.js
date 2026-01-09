@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
+import ScrollToTop from "./components/ScrollToTop";
 import Homepage from "./pages/Homepage";
 import AboutUs from "./pages/AboutUs";
 import Services from "./pages/Services";
@@ -51,6 +51,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
+       <ScrollToTop /> 
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/about" element={<AboutUs />} />

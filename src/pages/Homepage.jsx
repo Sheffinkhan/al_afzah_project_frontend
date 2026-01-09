@@ -146,9 +146,9 @@ const Homepage = () => {
 
   // Data
   const stats = [
-    { number: '15+', label: 'Years Experience' },
-    { number: '500+', label: 'Projects Completed' },
-    { number: '200+', label: 'Team Members' },
+    { number: '4+', label: 'Years Experience' },
+    { number: '20+', label: 'Projects Completed' },
+    { number: '20+', label: 'Team Members' },
     { number: '100%', label: 'Client Satisfaction' },
   ];
 
@@ -183,7 +183,7 @@ const Homepage = () => {
 
   const offerings = [
     { icon: Settings, title: 'Project Management', description: 'End-to-end project coordination and delivery' },
-    { icon: Shield, title: 'Quality Assurance', description: 'ISO certified standards and rigorous testing' },
+    { icon: Shield, title: 'Quality Assurance', description: 'Qatar construction standards and rigorous testing' },
     { icon: Lightbulb, title: 'Innovative Solutions', description: 'Cutting-edge technology and modern approaches' },
     { icon: HeartHandshake, title: 'Expert Consultation', description: 'Professional guidance from industry specialists' },
     { icon: Clock, title: 'Timely Delivery', description: 'On-schedule completion without compromise' },
@@ -376,7 +376,7 @@ const Homepage = () => {
                 <div className="absolute bottom-4 left-4 right-4">
                   <Users className="w-6 h-6 text-red-400 mb-2" />
                   <h4 className="text-white font-semibold">Expert Team</h4>
-                  <p className="text-gray-300 text-xs">200+ skilled professionals</p>
+                  <p className="text-gray-300 text-xs">20+ skilled professionals</p>
                 </div>
               </div>
             </AnimatedSection>
@@ -439,9 +439,9 @@ const Homepage = () => {
                   <h3 className="text-2xl font-bold text-white mb-6">Why Choose Al-Afzah?</h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {[
-                      'ISO Certified Quality',
+                      'QCS-Aligned Quality Standards',
                       'On-Time Delivery',
-                      'Expert Engineers',
+                      'Experienced Engineers',
                       '24/7 Support',
                       'Competitive Pricing',
                       'Full Warranty'
@@ -816,7 +816,8 @@ const Homepage = () => {
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm mb-1">Visit our office</p>
-                      <p className="text-xl font-bold text-white">Doha, Qatar</p>
+                      <p className="text-xl font-bold text-white">Office-04, Floor-01, Building-65</p>
+                      <p className="text-xl font-bold text-white">Al Tawba Street, Muaither</p>
                     </div>
                   </div>
                 </div>

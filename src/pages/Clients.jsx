@@ -218,8 +218,8 @@ const Clients = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {[
                 { number: '50+', label: 'Happy Clients' },
-                { number: '500+', label: 'Projects Delivered' },
-                { number: '15+', label: 'Years of Trust' },
+                { number: '20+', label: 'Projects Delivered' },
+                { number: '4+', label: 'Years of Trust' },
                 { number: '100%', label: 'Satisfaction Rate' },
               ].map((stat, i) => (
                 <div key={i} className="text-center p-6">

@@ -56,9 +56,9 @@ const AnimatedSection = ({ children, className = '', delay = 0 }) => {
 
 const AboutUs = () => {
   const stats = [
-    { number: '15+', label: 'Years Experience', icon: Award },
-    { number: '500+', label: 'Projects Completed', icon: Building },
-    { number: '200+', label: 'Team Members', icon: Users },
+    { number: '4+', label: 'Years Experience', icon: Award },
+    { number: '20+', label: 'Projects Completed', icon: Building },
+    { number: '20+', label: 'Team Members', icon: Users },
     { number: '100%', label: 'Client Satisfaction', icon: CheckCircle },
   ];
 
@@ -149,7 +149,7 @@ const AboutUs = () => {
                 
                 {/* Floating Stats Card */}
                 <div className="absolute -bottom-6 -right-6 bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-2xl">
-                  <div className="text-4xl font-bold text-red-500">15+</div>
+                  <div className="text-4xl font-bold text-red-500">4+</div>
                   <div className="text-gray-400 text-sm">Years of Excellence</div>
                 </div>
               </div>

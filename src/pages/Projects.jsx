@@ -54,12 +54,7 @@ const AnimatedSection = ({ children, className = '', delay = 0 }) => {
   );
 };
 
-const CATEGORY_FILTERS = [
-  { id: 'All', label: 'All Projects', icon: Filter },
-  { id: 'Residential', label: 'Residential', icon: Home },
-  { id: 'Commercial', label: 'Commercial', icon: Building2 },
-  { id: 'Interior', label: 'Interior', icon: Briefcase },
-];
+
 
 const defaultProjects = [
   { 
@@ -143,30 +138,6 @@ const Projects = ({ projects = defaultProjects, isAdmin }) => {
             <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
               Showcasing our commitment to precision, quality craftsmanship, and innovative solutions.
             </p>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* Filters Section */}
-      <section className="py-12 px-6 md:px-12 lg:px-20 border-b border-gray-800">
-        <div className="max-w-7xl mx-auto">
-          <AnimatedSection>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              {CATEGORY_FILTERS.map((filter) => (
-                <button
-                  key={filter.id}
-                  onClick={() => setActiveFilter(filter.id)}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                    activeFilter === filter.id
-                      ? 'bg-red-600 text-white shadow-lg shadow-red-600/25'
-                      : 'bg-gray-900 text-gray-400 border border-gray-800 hover:border-red-600/50 hover:text-white'
-                  }`}
-                >
-                  <filter.icon className="w-4 h-4" />
-                  {filter.label}
-                </button>
-              ))}
-            </div>
           </AnimatedSection>
         </div>
       </section>
@@ -257,9 +228,9 @@ const Projects = ({ projects = defaultProjects, isAdmin }) => {
           <AnimatedSection>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {[
-                { number: '500+', label: 'Projects Completed' },
-                { number: '15+', label: 'Years Experience' },
-                { number: '200+', label: 'Team Members' },
+                { number: '20+', label: 'Projects Completed' },
+                { number: '4+', label: 'Years Experience' },
+                { number: '20+', label: 'Team Members' },
                 { number: '100%', label: 'Client Satisfaction' },
               ].map((stat, i) => (
                 <div key={i} className="text-center p-8 bg-gray-900 border border-gray-800 rounded-2xl">
