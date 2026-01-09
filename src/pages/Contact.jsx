@@ -33,7 +33,7 @@ const useScrollAnimation = () => {
 // Animated Section Component
 const AnimatedSection = ({ children, className = '', delay = 0 }) => {
   const [ref, isVisible] = useScrollAnimation();
-  
+
   return (
     <div
       ref={ref}
@@ -114,7 +114,7 @@ const Contact = () => {
               Get In Touch
             </span>
           </AnimatedSection>
-          
+
           <AnimatedSection delay={100}>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
               Contact{' '}
@@ -203,75 +203,84 @@ const Contact = () => {
 
             {/* Contact Form */}
             <AnimatedSection delay={200}>
-              <div className="p-10 bg-gray-900 border border-gray-800 rounded-3xl">
-                <h2 className="text-2xl font-bold text-white mb-2">
-                  Send us a message
-                </h2>
-                <p className="text-gray-400 text-sm mb-8">
-                  Fill out the form below and we'll get back to you as soon as possible.
-                </p>
+              <div className="relative h-full p-10 bg-gray-900 border border-gray-800 rounded-3xl overflow-hidden">
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Your Name
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      required
+                {/* Animated Border Effect */}
+                <div className="absolute inset-0 rounded-3xl overflow-hidden">
+                  <div className="absolute inset-[-100%] animate-[spin_8s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0_340deg,#dc2626_360deg)]" />
+                  <div className="absolute inset-[1px] bg-gray-900 rounded-3xl" />
+                </div>
+
+                {/* CONTENT */}
+                <div className="relative z-10">
+                  <h2 className="text-2xl font-bold text-white mb-2">
+                    Send us a message
+                  </h2>
+                  <p className="text-gray-400 text-sm mb-8">
+                    Fill out the form below and we'll get back to you as soon as possible.
+                  </p>
+
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                        Your Name
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        required
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
-                      placeholder="John Doe"
-                    />
-                  </div>
+                        placeholder="John Doe"
+                      />
+                    </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      value={formData.email}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                        Email Address
+                      </label>
+                      <input
+                        type="email"
+                        value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      required
+                        required
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
-                      placeholder="john@example.com"
-                    />
-                  </div>
+                        placeholder="john@example.com"
+                      />
+                    </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      value={formData.phone}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                        Phone Number
+                      </label>
+                      <input
+                        type="tel"
+                        value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
-                      placeholder="+974 XXXX XXXX"
-                    />
-                  </div>
+                        placeholder="+974 XXXX XXXX"
+                      />
+                    </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Message
-                    </label>
-                    <textarea
-                      value={formData.message}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                        Message
+                      </label>
+                      <textarea                       
+                        value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      required
-                      rows={5}
+                        required
+                      rows={10}
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors resize-none"
-                      placeholder="Tell us about your project..."
-                    />
-                  </div>
+                        placeholder="Tell us about your project..."
+                      />
+                    </div>
 
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
                     className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-red-600 text-white font-semibold rounded-xl transition-all duration-300 hover:bg-red-700 hover:-translate-y-1 hover:shadow-2xl hover:shadow-red-600/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                  >
+                    >
                     {isSubmitting ? (
                       <>
                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -280,11 +289,12 @@ const Contact = () => {
                     ) : (
                       <>
                         Send Message
-                        <Send className="w-5 h-5" />
+                      <Send className="w-5 h-5" />
                       </>
                     )}
-                  </button>
-                </form>
+                    </button>
+                  </form>
+                </div>
               </div>
             </AnimatedSection>
           </div>
