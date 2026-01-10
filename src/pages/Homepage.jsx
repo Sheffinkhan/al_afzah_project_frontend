@@ -783,7 +783,7 @@ useEffect(() => {
                   <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                 </button>
                 <a
-                  href="tel:+97444444444"
+                  href="tel:+974 3080 6490"
                   className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl transition-all duration-300 hover:bg-white/20"
                 >
                   <Phone className="w-5 h-5" />
@@ -803,7 +803,7 @@ useEffect(() => {
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm mb-1">Call us anytime</p>
-                      <p className="text-2xl font-bold text-white">+974 XXXX XXXX</p>
+                      <p className="text-2xl font-bold text-white">+974 3080 6490</p>
                     </div>
                   </div>
                 </div>

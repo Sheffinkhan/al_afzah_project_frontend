@@ -215,7 +215,8 @@ const Navbar = () => {
           >
             <div className="space-y-2">
               <p className="text-white/90 text-sm font-medium">info@al-afzahgroup.com</p>
-              <p className="text-white/70 text-sm">Doha, Qatar</p>
+              <p className="text-white/70 text-sm">Office-04, Floor-01, Building-65</p>
+              <p className="text-white/70 text-sm">Al Tawba Street, Muaither, Qatar</p>
             </div>
             
             {/* Decorative line */}

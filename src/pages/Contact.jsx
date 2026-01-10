@@ -61,7 +61,7 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Call Us",
-    lines: ["+974 66908916", "+974 30806490"]
+    lines: ["+974 3080 6490"]
   },
   {
     icon: Mail,
