@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Building2 } from 'lucide-react';
+import { Building2 } from 'lucide-react';
 
 // Import project images
 import projectVilla from '../assets/project-villa.jpg';
@@ -63,32 +63,37 @@ const defaultProjects = [
   {
     id: 1,
     title: 'Commercial Tower MEP',
-    category: 'Commercial',
-    status: 'Completed',
     description:
       'Complete MEP installation for a 25-story commercial tower including HVAC, electrical, and plumbing systems.',
     image: projectMep,
-    date: '2023',
   },
   {
     id: 2,
     title: 'Luxury Villa Complex',
-    category: 'Residential',
-    status: 'Completed',
     description:
       'Full construction and MEP services for premium residential villas with modern amenities.',
     image: projectVilla,
-    date: '2024',
   },
   {
     id: 3,
     title: 'Corporate Office Fitout',
-    category: 'Interior',
-    status: 'In Progress',
     description:
       'High-end office fitout with smart building systems and contemporary design.',
     image: projectOffice,
-    date: '2024',
+  },
+    {
+    id: 1,
+    title: 'Commercial Tower MEP',
+    description:
+      'Complete MEP installation for a 25-story commercial tower including HVAC, electrical, and plumbing systems.',
+    image: projectMep,
+  },
+  {
+    id: 2,
+    title: 'Luxury Villa Complex',
+    description:
+      'Full construction and MEP services for premium residential villas with modern amenities.',
+    image: projectVilla,
   },
 ];
 
@@ -166,9 +171,9 @@ const Projects = ({ projects = defaultProjects, isAdmin }) => {
                       </p>
                     </div>
 
-                    <div className="absolute top-6 right-6 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                    {/* <div className="absolute top-6 right-6 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
                       <ArrowRight className="text-white" />
-                    </div>
+                    </div> */}
                   </div>
                 </AnimatedSection>
               ))}

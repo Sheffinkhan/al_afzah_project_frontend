@@ -54,17 +54,6 @@ import projectVilla from '../assets/project-villa.jpg';
 import projectMep from '../assets/project-mep.jpg';
 import projectOffice from '../assets/project-office.jpg';
 
-// Import client logos
-import clientHavelock from '../assets/client-havelock.png';
-import clientImperial from '../assets/client-imperial.png';
-import clientItc from '../assets/client-itc.png';
-import clientMarriott from '../assets/client-marriott.png';
-import clientUae from '../assets/client-uae.png';
-import clientHaramain from '../assets/client-haramain.png';
-import clientArrowhead from '../assets/client-arrowhead.png';
-import clientEngie from '../assets/client-engie.png';
-import clientErtibat from '../assets/client-ertibat.png';
-import clientGetp from '../assets/client-getp.png';
 
 // Hero images array
 const heroImages = [hero1, hero2, hero3, hero4, hero5];
@@ -167,19 +156,27 @@ const Homepage = () => {
     { id: 3, title: 'Modern Office Fitout', category: 'Interior', status: 'In Progress', image: projectOffice, description: 'Contemporary workspace design and fitout' },
   ];
 
-  // Client logos data
-  const clients = [
-    { name: 'Havelock One', logo: clientHavelock },
-    { name: 'Imperial Real Estate', logo: clientImperial },
-    { name: 'ITC', logo: clientItc },
-    { name: 'JW Marriott', logo: clientMarriott },
-    { name: 'UAE Embassy', logo: clientUae },
-    { name: 'Al Haramain', logo: clientHaramain },
-    { name: 'Arrowhead Switchgear', logo: clientArrowhead },
-    { name: 'Engie Cofely Mannai', logo: clientEngie },
-    { name: 'Ertibat Engineering', logo: clientErtibat },
-    { name: 'GETP Group', logo: clientGetp },
-  ];
+const [clients, setClients] = useState([]);
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  const fetchClients = async () => {
+    try {
+      const res = await fetch("http://3.111.31.155:5000/api/clients");
+      const data = await res.json();
+
+      // Show ONLY first 10 clients
+      setClients(data.slice(0, 10));
+    } catch (err) {
+      console.error("Error fetching clients", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchClients();
+}, []);
+
 
   const offerings = [
     { icon: Settings, title: 'Project Management', description: 'End-to-end project coordination and delivery' },
@@ -664,26 +661,42 @@ const Homepage = () => {
           </AnimatedSection>
 
           {/* Clients Logo Grid */}
-          <AnimatedSection delay={200}>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-16">
-              {clients.map((client, i) => (
-                <div
-                  key={client.name}
-                  className="group relative bg-white rounded-xl border border-gray-200 p-6 flex items-center justify-center h-32 transition-all duration-500 hover:shadow-xl hover:border-red-500/30 hover:-translate-y-2"
-                >
-                  <img 
-                    src={client.logo} 
-                    alt={client.name}
-                    className="max-h-20 max-w-full object-contain filter grayscale opacity-70 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100"
-                  />
-                  {/* Hover Overlay with Name */}
-                  <div className="absolute inset-0 bg-red-600 rounded-xl flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-0">
-                    <span className="text-white font-semibold text-center px-4">{client.name}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </AnimatedSection>
+          {/* Clients Logo Grid */}
+<AnimatedSection delay={200}>
+  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-16">
+
+    {loading ? (
+      <div className="col-span-full text-center text-gray-400">
+        Loading clients...
+      </div>
+    ) : clients.length === 0 ? (
+      <div className="col-span-full text-center text-gray-400">
+        No clients available
+      </div>
+    ) : (
+      clients.map((client, i) => (
+        <div
+          key={client.id}
+          className="group relative bg-white rounded-xl border border-gray-200 p-6 flex items-center justify-center h-32 transition-all duration-500 hover:shadow-xl hover:border-red-500/30 hover:-translate-y-2"
+        >
+          {client.logoUrl ? (
+            <img
+              src={client.logoUrl}
+              alt={client.name}
+              className="max-h-20 max-w-full object-contain filter grayscale opacity-70 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100"
+            />
+          ) : (
+            <span className="text-gray-500 font-semibold text-center">
+              {client.name}
+            </span>
+          )}
+        </div>
+      ))
+    )}
+
+  </div>
+</AnimatedSection>
+
 
           {/* Testimonial */}
           <AnimatedSection delay={400} className="max-w-4xl mx-auto">

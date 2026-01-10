@@ -10,44 +10,8 @@ import Projects from "./pages/Projects";
 import Clients from "./pages/Clients";
 import Contact from "./pages/Contact";
 
-import { useState } from "react";
 
 const App = () => {
-  // const [isAdmin, setIsAdmin] = useState(true);
-
-  const [projects, setProjects] = useState([
-    {
-      id: 1,
-      title: "Luxury Villa Development",
-      description: "High-end residential villa project with modern amenities",
-      category: "Residential",
-      status: "Completed",
-      date: "2024-01-15",
-    },
-    {
-      id: 2,
-      title: "Commercial Complex",
-      description: "Multi-story commercial building in prime location",
-      category: "Commercial",
-      status: "Completed",
-      date: "2024-02-20",
-    },
-    {
-      id: 3,
-      title: "Soorath Autos",
-      description: "Vehicle Reselling",
-      category: "Vehicle",
-      status: "Completed",
-      date: "2024-02-20",
-    },
-  ]);
-
-  const [clients, setClients] = useState([
-    { id: 1, name: "Emirates Group", description: "Aviation & Travel Industry" },
-    { id: 2, name: "Aldar Properties", description: "Real Estate Development" },
-    { id: 3, name: "Dubai Holding", description: "Diversified Investment" },
-  ]);
-
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -60,9 +24,6 @@ const App = () => {
           path="/projects"
           element={
             <Projects
-              projects={projects}
-              setProjects={setProjects}
-              // isAdmin={isAdmin}
             />
           }
         />
@@ -70,9 +31,6 @@ const App = () => {
           path="/clients"
           element={
             <Clients
-              clients={clients}
-              setClients={setClients}
-              // isAdmin={isAdmin}
             />
           }
         />

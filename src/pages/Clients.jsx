@@ -163,31 +163,67 @@ const Clients = () => {
         </div>
       </section>
 
-      {/* ================= TESTIMONIALS ================= */}
-      <section className="py-20 px-6 bg-gray-900/50">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
-          {testimonials.map((t, i) => (
-            <AnimatedSection key={i} delay={i * 150}>
-              <div className="p-8 bg-gray-900 border border-gray-800 rounded-2xl">
-                <Quote className="text-red-500 mb-4" />
-                <div className="flex mb-4">
-                  {[...Array(t.rating)].map((_, idx) => (
-                    <Star
-                      key={idx}
-                      className="w-4 h-4 text-yellow-500 fill-yellow-500"
-                    />
-                  ))}
-                </div>
-                <p className="italic text-gray-300 mb-6">"{t.text}"</p>
-                <div className="border-t border-gray-800 pt-4">
-                  <div className="font-semibold">{t.author}</div>
-                  <div className="text-gray-500 text-sm">{t.company}</div>
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
+     {/* ================= TESTIMONIALS ================= */}
+<section className="py-20 px-6 bg-gray-900/50">
+  <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+
+    {testimonials.map((t, i) => (
+      <AnimatedSection key={i} delay={i * 150}>
+        {/* Card */}
+        <div
+          className="
+            group h-full flex flex-col
+            p-8 bg-gray-900 border border-gray-800 rounded-2xl
+            transition-all duration-500
+            hover:-translate-y-2
+            hover:border-red-500/50
+            hover:shadow-2xl hover:shadow-red-900/30
+          "
+        >
+          {/* Quote Icon */}
+          <Quote className="text-red-500 mb-4" />
+
+          {/* Stars */}
+          <div className="flex mb-4">
+            {[...Array(t.rating)].map((_, idx) => (
+              <Star
+                key={idx}
+                className="w-4 h-4 text-yellow-500 fill-yellow-500"
+              />
+            ))}
+          </div>
+
+          {/* Text (flex-grow keeps equal height) */}
+          <p className="italic text-gray-300 mb-6 flex-grow">
+            "{t.text}"
+          </p>
+
+          {/* Author */}
+          <div className="border-t border-gray-800 pt-4">
+            <div className="font-semibold text-white">
+              {t.author}
+            </div>
+            <div className="text-gray-500 text-sm">
+              {t.company}
+            </div>
+          </div>
+
+          {/* Glow Overlay */}
+          <div
+            className="
+              pointer-events-none absolute inset-0 rounded-2xl
+              bg-gradient-to-b from-red-600/10 to-transparent
+              opacity-0 group-hover:opacity-100
+              transition-opacity duration-500
+            "
+          />
         </div>
-      </section>
+      </AnimatedSection>
+    ))}
+
+  </div>
+</section>
+
 
       {/* ================= CTA ================= */}
       <section className="py-24 px-6">
