@@ -75,7 +75,7 @@ const useScrollAnimation = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const element = ref.current; // ✅ capture once
+    const element = ref.current;
 
     if (!element) return;
 
@@ -91,7 +91,7 @@ const useScrollAnimation = () => {
     observer.observe(element);
 
     return () => {
-      observer.unobserve(element); // ✅ use same reference
+      observer.unobserve(element);
     };
   }, []);
 

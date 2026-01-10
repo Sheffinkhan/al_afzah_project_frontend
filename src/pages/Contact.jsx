@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Mail, Phone, MapPin, Globe, Send, Clock, ArrowRight } from "lucide-react";
-
+import Toast from "../components/Toast";
+import logo from '../assets/Navlogo.png';
 // Custom hook for scroll animations
 const useScrollAnimation = () => {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+
 
   useEffect(() => {
     const element = ref.current;
@@ -80,17 +82,59 @@ const Contact = () => {
     phone: '',
     message: ''
   });
+
+  const [toast, setToast] = useState(null);
+
+  const showToast = (type, message) => {
+    setToast({ type, message });
+    setTimeout(() => setToast(null), 4000);
+  };
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.message) {
+      showToast("warning", "Please fill all required fields");
+      return;
+    }
+
     setIsSubmitting(true);
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    setFormData({ name: '', email: '', phone: '', message: '' });
-    alert('Message sent successfully!');
+
+    try {
+      const response = await fetch(
+        "http://3.111.31.155:5000/api/mail/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to send message");
+      }
+
+      showToast("success", "Message sent successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("CONTACT ERROR:", error);
+      showToast("error", "Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
@@ -123,7 +167,7 @@ const Contact = () => {
               </span>
             </h1>
           </AnimatedSection>
-          
+
           <AnimatedSection delay={200}>
             <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
               We'd love to hear from you. Reach out to us for project inquiries,
@@ -149,9 +193,14 @@ const Contact = () => {
                 <div className="relative z-10">
                   {/* Logo/Brand */}
                   <div className="mb-10">
-                    <div className="w-16 h-16 bg-red-600/10 rounded-2xl flex items-center justify-center mb-6">
-                      <div className="w-8 h-8 bg-red-600 rounded-lg" />
+                    <div className="group w-16 h-16 bg-red-600/10 rounded-2xl flex items-center justify-center mb-6">
+                      <img
+                        src={logo}
+                        alt="Al-Afzah Group"
+                        className="w-12 h-12 md:w-14 md:h-14 object-contain transition-transform duration-300 group-hover:scale-105"
+                      />
                     </div>
+
                     <h2 className="text-2xl font-bold text-white mb-2">
                       AL AFZAH GROUP
                     </h2>
@@ -230,7 +279,7 @@ const Contact = () => {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         required
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+                        className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
                         placeholder="John Doe"
                       />
                     </div>
@@ -242,9 +291,9 @@ const Contact = () => {
                       <input
                         type="email"
                         value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         required
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+                        className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
                         placeholder="john@example.com"
                       />
                     </div>
@@ -256,8 +305,8 @@ const Contact = () => {
                       <input
                         type="tel"
                         value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
                         placeholder="+974 XXXX XXXX"
                       />
                     </div>
@@ -266,12 +315,12 @@ const Contact = () => {
                       <label className="block text-sm font-medium text-gray-300 mb-2">
                         Message
                       </label>
-                      <textarea                       
+                      <textarea
                         value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         required
-                      rows={10}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors resize-none"
+                        rows={10}
+                        className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors resize-none"
                         placeholder="Tell us about your project..."
                       />
                     </div>
@@ -279,19 +328,19 @@ const Contact = () => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                    className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-red-600 text-white font-semibold rounded-xl transition-all duration-300 hover:bg-red-700 hover:-translate-y-1 hover:shadow-2xl hover:shadow-red-600/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                      className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-red-600 text-white font-semibold rounded-xl transition-all duration-300 hover:bg-red-700 hover:-translate-y-1 hover:shadow-2xl hover:shadow-red-600/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                     >
-                    {isSubmitting ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        Send Message
-                      <Send className="w-5 h-5" />
-                      </>
-                    )}
+                      {isSubmitting ? (
+                        <>
+                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          Send Message
+                          <Send className="w-5 h-5" />
+                        </>
+                      )}
                     </button>
                   </form>
                 </div>
@@ -301,30 +350,63 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Map Section Placeholder */}
-      <section className="py-20 px-6 md:px-12 lg:px-20 bg-gray-900/50">
-        <div className="max-w-7xl mx-auto">
-          <AnimatedSection>
-            <div className="relative h-[400px] bg-gray-900 border border-gray-800 rounded-3xl overflow-hidden flex items-center justify-center">
-              <div className="text-center">
-                <MapPin className="w-16 h-16 text-red-500 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-white mb-2">Our Location</h3>
-                <p className="text-gray-400">Office-04, Floor-01, Building-65</p>
-                <p className="text-gray-400">Al Tawba Street, Muaither</p>
-                <a
-                  href="https://maps.google.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-red-600 text-white font-medium rounded-xl hover:bg-red-700 transition-colors"
-                >
-                  Open in Maps
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
-          </AnimatedSection>
+{/* Map Section */}
+<section className="py-20 px-6 md:px-12 lg:px-20 bg-gray-900/50">
+  <div className="max-w-7xl mx-auto">
+    <AnimatedSection>
+      <div className="relative h-[400px] rounded-3xl overflow-hidden border border-gray-800">
+
+        {/* Google Map Background */}
+        <iframe
+          title="Al Afzah Group Location"
+          src="https://www.google.com/maps?q=Office-04,+Floor-01,+Building-65,+Al+Tawba+Street,+Muaither,+Qatar&output=embed"
+          className="absolute inset-0 w-full h-full"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-gray-900/70 backdrop-blur-[1px]" />
+
+        {/* Content */}
+        <div className="relative z-10 flex items-center justify-center h-full">
+          <div className="text-center px-6">
+            <MapPin className="w-16 h-16 text-red-500 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-white mb-2">
+              Our Location
+            </h3>
+            <p className="text-gray-300">
+              Office-04, Floor-01, Building-65
+            </p>
+            <p className="text-gray-300">
+              Al Tawba Street, Muaither, Qatar
+            </p>
+
+            <a
+              href="https://www.google.com/maps?q=Office-04,+Floor-01,+Building-65,+Al+Tawba+Street,+Muaither,+Qatar"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-red-600 text-white font-medium rounded-xl hover:bg-red-700 transition-colors"
+            >
+              Open in Google Maps
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
         </div>
-      </section>
+
+      </div>
+    </AnimatedSection>
+  </div>
+</section>
+
+      {toast && (
+        <Toast
+          type={toast.type}
+          message={toast.message}
+          onClose={() => setToast(null)}
+        />
+      )}
+
     </div>
   );
 };
