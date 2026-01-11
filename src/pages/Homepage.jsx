@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { 
-  Award, 
-  Users, 
-  CheckCircle, 
-  ArrowRight, 
+import {
+  Award,
+  Users,
+  CheckCircle,
+  ArrowRight,
   ArrowDown,
   Zap,
   Droplets,
@@ -53,7 +53,7 @@ import serviceMaintenance from '../assets/service-maintenance.jpg';
 import projectVilla from '../assets/project-villa.jpg';
 import projectMep from '../assets/project-mep.jpg';
 import projectOffice from '../assets/project-office.jpg';
-
+import clientsData from "../data/clientsData";
 
 // Hero images array
 const heroImages = [hero1, hero2, hero3, hero4, hero5];
@@ -90,7 +90,7 @@ const useScrollAnimation = () => {
 // Animated Section Component
 const AnimatedSection = ({ children, className = '', delay = 0 }) => {
   const [ref, isVisible] = useScrollAnimation();
-  
+
   return (
     <div
       ref={ref}
@@ -156,26 +156,7 @@ const Homepage = () => {
     { id: 3, title: 'Modern Office Fitout', category: 'Interior', status: 'In Progress', image: projectOffice, description: 'Contemporary workspace design and fitout' },
   ];
 
-const [clients, setClients] = useState([]);
-const [loading, setLoading] = useState(true);
-
-useEffect(() => {
-  const fetchClients = async () => {
-    try {
-      const res = await fetch("http://3.111.31.155:5000/api/clients");
-      const data = await res.json();
-
-      // Show ONLY first 10 clients
-      setClients(data.slice(0, 10));
-    } catch (err) {
-      console.error("Error fetching clients", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  fetchClients();
-}, []);
+  const clients = clientsData.slice(0, 10);
 
 
   const offerings = [
@@ -213,7 +194,7 @@ useEffect(() => {
             </div>
           ))}
           <div className="absolute inset-0 bg-gradient-to-b from-gray-900/70 via-gray-900/50 to-gray-900/90 z-10" />
-          <div 
+          <div
             className="absolute inset-0 z-10 transition-opacity duration-1000"
             style={{
               background: 'radial-gradient(ellipse at 30% 50%, rgba(220, 38, 38, 0.15) 0%, transparent 60%)',
@@ -221,22 +202,22 @@ useEffect(() => {
             }}
           />
         </div>
-        
+
         <div className="absolute right-0 top-1/4 w-px h-32 bg-gradient-to-b from-transparent via-red-500 to-transparent opacity-50 z-20" />
         <div className="absolute right-10 top-1/3 w-px h-48 bg-gradient-to-b from-transparent via-white/30 to-transparent z-20" />
         <div className="absolute left-10 bottom-1/4 w-20 h-20 border border-red-500/30 rounded-full z-20 animate-pulse" />
         <div className="absolute right-20 bottom-1/3 w-32 h-32 border border-white/10 rounded-full z-20" />
-        
+
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-32 md:pt-36">
           <div className="mb-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-            <img 
-              src={logo} 
-              alt="Al-Afzah Group Logo" 
+            <img
+              src={logo}
+              alt="Al-Afzah Group Logo"
               className="w-40 h-40 md:w-52 md:h-52 object-contain mx-auto drop-shadow-2xl"
             />
           </div>
 
-          <h1 
+          <h1
             className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight mb-8 animate-fade-in"
             style={{ animationDelay: '0.3s' }}
           >
@@ -247,15 +228,15 @@ useEffect(() => {
             <span className="block">Excellence</span>
           </h1>
 
-          <p 
+          <p
             className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in"
             style={{ animationDelay: '0.5s' }}
           >
-            Leading construction and MEP services company in Qatar. 
+            Leading construction and MEP services company in Qatar.
             Delivering exceptional quality and innovative solutions for over a decade.
           </p>
 
-          <div 
+          <div
             className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in"
             style={{ animationDelay: '0.7s' }}
           >
@@ -279,11 +260,10 @@ useEffect(() => {
               <button
                 key={index}
                 onClick={() => setCurrentImageIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-500 ${
-                  currentImageIndex === index 
-                    ? 'w-8 bg-red-500' 
+                className={`w-2 h-2 rounded-full transition-all duration-500 ${currentImageIndex === index
+                    ? 'w-8 bg-red-500'
                     : 'bg-white/40 hover:bg-white/60'
-                }`}
+                  }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
             ))}
@@ -313,7 +293,7 @@ useEffect(() => {
               <span className="text-red-600">Since 2009</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Al-Afzah Group WLL is a leading construction and MEP services company 
+              Al-Afzah Group WLL is a leading construction and MEP services company
               committed to delivering exceptional quality and innovative solutions.
             </p>
           </AnimatedSection>
@@ -349,9 +329,8 @@ useEffect(() => {
                 {stats.map((stat, i) => (
                   <div
                     key={stat.label}
-                    className={`relative p-6 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden ${
-                      i === 0 ? 'bg-red-600 text-white' : 'bg-gray-100'
-                    }`}
+                    className={`relative p-6 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden ${i === 0 ? 'bg-red-600 text-white' : 'bg-gray-100'
+                      }`}
                   >
                     <div className={`absolute top-0 right-0 w-20 h-20 rounded-full blur-2xl ${i === 0 ? 'bg-white/20' : 'bg-red-500/10'}`} />
                     <span className={`block text-4xl font-bold mb-1 ${i === 0 ? 'text-white' : 'text-gray-900'}`}>
@@ -479,7 +458,7 @@ useEffect(() => {
               Comprehensive MEP <span className="text-red-500">&</span> Construction
             </h2>
             <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              From design to commissioning, we provide end-to-end solutions for all your 
+              From design to commissioning, we provide end-to-end solutions for all your
               construction and MEP requirements.
             </p>
           </AnimatedSection>
@@ -561,9 +540,8 @@ useEffect(() => {
                     <span className="px-3 py-1 bg-red-600 text-white text-xs font-semibold rounded-full">
                       {project.category}
                     </span>
-                    <span className={`px-3 py-1 text-xs font-semibold rounded-full ${
-                      project.status === 'Completed' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-gray-900'
-                    }`}>
+                    <span className={`px-3 py-1 text-xs font-semibold rounded-full ${project.status === 'Completed' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-gray-900'
+                      }`}>
                       {project.status}
                     </span>
                   </div>
@@ -597,7 +575,7 @@ useEffect(() => {
         {/* Background Decoration */}
         <div className="absolute top-0 left-0 w-96 h-96 bg-red-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-red-500/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
-        
+
         <div className="max-w-7xl mx-auto relative z-10">
           <AnimatedSection className="text-center mb-16">
             <span className="inline-block text-red-600 font-semibold tracking-wider uppercase text-sm mb-4">
@@ -619,7 +597,7 @@ useEffect(() => {
                   <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:bg-red-600 group-hover:scale-110 group-hover:rotate-3">
                     <offer.icon className="w-8 h-8 text-red-600 transition-colors duration-500 group-hover:text-white" />
                   </div>
-                  
+
                   {/* Content */}
                   <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-300">
                     {offer.title}
@@ -627,12 +605,12 @@ useEffect(() => {
                   <p className="text-gray-600 leading-relaxed">
                     {offer.description}
                   </p>
-                  
+
                   {/* Arrow */}
                   <div className="absolute top-8 right-8 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center opacity-0 translate-x-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0 group-hover:bg-red-100">
                     <ArrowRight className="w-5 h-5 text-red-600" />
                   </div>
-                  
+
                   {/* Bottom Accent Line */}
                   <div className="absolute bottom-0 left-8 right-8 h-1 bg-red-600 rounded-full transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100" />
                 </div>
@@ -662,40 +640,40 @@ useEffect(() => {
 
           {/* Clients Logo Grid */}
           {/* Clients Logo Grid */}
-<AnimatedSection delay={200}>
-  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-16">
+          <AnimatedSection delay={200}>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-16">
 
-    {loading ? (
-      <div className="col-span-full text-center text-gray-400">
-        Loading clients...
-      </div>
-    ) : clients.length === 0 ? (
-      <div className="col-span-full text-center text-gray-400">
-        No clients available
-      </div>
-    ) : (
-      clients.map((client, i) => (
-        <div
-          key={client.id}
-          className="group relative bg-white rounded-xl border border-gray-200 p-6 flex items-center justify-center h-32 transition-all duration-500 hover:shadow-xl hover:border-red-500/30 hover:-translate-y-2"
-        >
-          {client.logoUrl ? (
-            <img
-              src={client.logoUrl}
-              alt={client.name}
-              className="max-h-20 max-w-full object-contain filter grayscale opacity-70 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100"
-            />
-          ) : (
-            <span className="text-gray-500 font-semibold text-center">
-              {client.name}
-            </span>
-          )}
-        </div>
-      ))
-    )}
+              {clients.length === 0 ? (
+                <div className="col-span-full text-center text-gray-400">
+                  Loading clients...
+                </div>
+              ) : clients.length === 0 ? (
+                <div className="col-span-full text-center text-gray-400">
+                  No clients available
+                </div>
+              ) : (
+                clients.map((client, i) => (
+                  <div
+                    key={client.id}
+                    className="group relative bg-white rounded-xl border border-gray-200 p-6 flex items-center justify-center h-32 transition-all duration-500 hover:shadow-xl hover:border-red-500/30 hover:-translate-y-2"
+                  >
+                    {client.logoUrl ? (
+                      <img
+                        src={client.logoUrl}
+                        alt={client.name}
+                        className="max-h-20 max-w-full object-contain filter grayscale opacity-70 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100"
+                      />
+                    ) : (
+                      <span className="text-gray-500 font-semibold text-center">
+                        {client.name}
+                      </span>
+                    )}
+                  </div>
+                ))
+              )}
 
-  </div>
-</AnimatedSection>
+            </div>
+          </AnimatedSection>
 
 
           {/* Testimonial */}
@@ -705,13 +683,13 @@ useEffect(() => {
               <div className="absolute -top-6 left-8 w-12 h-12 bg-red-600 rounded-2xl flex items-center justify-center">
                 <Quote className="w-6 h-6 text-white" />
               </div>
-              
+
               <blockquote className="text-xl md:text-2xl font-medium text-gray-900 leading-relaxed mb-8 mt-4">
-                "Al-Afzah Group has consistently delivered exceptional quality in all our projects. 
-                Their professionalism, attention to detail, and commitment to timelines make them 
+                "Al-Afzah Group has consistently delivered exceptional quality in all our projects.
+                Their professionalism, attention to detail, and commitment to timelines make them
                 a trusted partner for any construction or MEP project."
               </blockquote>
-              
+
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center">
                   <Users className="w-7 h-7 text-red-600" />
@@ -743,7 +721,7 @@ useEffect(() => {
       <section className="relative py-24 md:py-32 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
-        
+
         {/* Decorative Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-full h-full" style={{
@@ -751,10 +729,10 @@ useEffect(() => {
             backgroundSize: '40px 40px'
           }} />
         </div>
-        
+
         {/* Red Accent */}
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-600 via-red-500 to-red-600" />
-        
+
         {/* Decorative Elements */}
         <div className="absolute top-1/4 left-10 w-40 h-40 bg-red-600/20 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-10 w-60 h-60 bg-red-600/10 rounded-full blur-3xl" />
@@ -771,7 +749,7 @@ useEffect(() => {
                 <span className="text-red-500">Next Project?</span>
               </h2>
               <p className="text-lg md:text-xl text-gray-400 mb-10 max-w-lg leading-relaxed">
-                Let's discuss how we can bring your vision to life with quality 
+                Let's discuss how we can bring your vision to life with quality
                 construction and MEP solutions tailored to your needs.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -807,7 +785,7 @@ useEffect(() => {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Email Card */}
                 <div className="group p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 transition-all duration-500 hover:bg-white/10 hover:border-red-500/30 hover:-translate-x-2">
                   <div className="flex items-center gap-5">
@@ -820,7 +798,7 @@ useEffect(() => {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Location Card */}
                 <div className="group p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 transition-all duration-500 hover:bg-white/10 hover:border-red-500/30 hover:-translate-x-2">
                   <div className="flex items-center gap-5">
@@ -834,7 +812,7 @@ useEffect(() => {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Working Hours Card */}
                 <div className="group p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 transition-all duration-500 hover:bg-white/10 hover:border-red-500/30 hover:-translate-x-2">
                   <div className="flex items-center gap-5">

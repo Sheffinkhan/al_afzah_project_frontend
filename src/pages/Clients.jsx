@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Users, Quote, Star, ArrowRight } from "lucide-react";
+import clientsData from "../data/clientsData";
 
 /* =======================
    Scroll Animation Hook
@@ -82,21 +83,11 @@ const Clients = () => {
   const [loading, setLoading] = useState(true);
 
   /* Fetch Clients */
-  useEffect(() => {
-    const fetchClients = async () => {
-      try {
-        const res = await fetch("http://3.111.31.155:5000/api/clients");
-        const data = await res.json();
-        setClients(data);
-      } catch (err) {
-        console.error("Failed to load clients", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+useEffect(() => {
+  setClients(clientsData);
+  setLoading(false);
+}, []);
 
-    fetchClients();
-  }, []);
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
