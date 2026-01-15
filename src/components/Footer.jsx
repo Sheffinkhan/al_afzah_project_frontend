@@ -117,7 +117,7 @@ const Footer = () => {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="tel:+97444444444"
+                  href="tel:+974 3080 6490"
                   className="flex items-start gap-3 text-gray-400 transition-colors duration-300 hover:text-primary group"
                 >
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/20">
