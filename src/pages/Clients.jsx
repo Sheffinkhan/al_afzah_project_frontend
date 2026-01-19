@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Users, Quote, Star, ArrowRight } from "lucide-react";
-import clientsData from "../data/clientsData";
+import { getClients } from "../services/clientService";
+
 
 /* =======================
    Scroll Animation Hook
@@ -84,8 +85,18 @@ const Clients = () => {
 
   /* Fetch Clients */
 useEffect(() => {
-  setClients(clientsData);
-  setLoading(false);
+  const fetchClients = async () => {
+    try {
+      const data = await getClients();
+      setClients(data);
+    } catch (error) {
+      console.error("Failed to fetch clients:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchClients();
 }, []);
 
 
