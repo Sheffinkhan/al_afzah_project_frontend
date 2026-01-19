@@ -53,7 +53,7 @@ import serviceMaintenance from '../assets/service-maintenance.jpg';
 import projectVilla from '../assets/project-villa.jpg';
 import projectMep from '../assets/project-mep.jpg';
 import projectOffice from '../assets/project-office.jpg';
-import clientsData from "../data/clientsData";
+import { getClients } from "../services/clientService";
 
 // Hero images array
 const heroImages = [hero1, hero2, hero3, hero4, hero5];
@@ -156,7 +156,25 @@ const Homepage = () => {
     { id: 3, title: 'Modern Office Fitout', category: 'Interior', status: 'In Progress', image: projectOffice, description: 'Contemporary workspace design and fitout' },
   ];
 
-  const clients = clientsData.slice(0, 10);
+  const [clients, setClients] = useState([]);
+  const [clientsLoading, setClientsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchClients = async () => {
+      try {
+        const data = await getClients();
+        setClients(data.slice(0, 10)); // show only first 10
+      } catch (error) {
+        console.error("Failed to fetch clients:", error);
+      } finally {
+        setClientsLoading(false);
+      }
+    };
+
+    fetchClients();
+  }, []);
+
+
 
 
   const offerings = [
@@ -261,8 +279,8 @@ const Homepage = () => {
                 key={index}
                 onClick={() => setCurrentImageIndex(index)}
                 className={`w-2 h-2 rounded-full transition-all duration-500 ${currentImageIndex === index
-                    ? 'w-8 bg-red-500'
-                    : 'bg-white/40 hover:bg-white/60'
+                  ? 'w-8 bg-red-500'
+                  : 'bg-white/40 hover:bg-white/60'
                   }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
@@ -643,7 +661,7 @@ const Homepage = () => {
           <AnimatedSection delay={200}>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-16">
 
-              {clients.length === 0 ? (
+              {clientsLoading ? (
                 <div className="col-span-full text-center text-gray-400">
                   Loading clients...
                 </div>
@@ -652,7 +670,7 @@ const Homepage = () => {
                   No clients available
                 </div>
               ) : (
-                clients.map((client, i) => (
+                clients.map((client) => (
                   <div
                     key={client.id}
                     className="group relative bg-white rounded-xl border border-gray-200 p-6 flex items-center justify-center h-32 transition-all duration-500 hover:shadow-xl hover:border-red-500/30 hover:-translate-y-2"
@@ -671,6 +689,7 @@ const Homepage = () => {
                   </div>
                 ))
               )}
+
 
             </div>
           </AnimatedSection>
