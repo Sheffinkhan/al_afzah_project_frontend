@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Users, Quote, Star, ArrowRight } from "lucide-react";
-import { getClients } from "../services/clientService";
+import { getClients } from "../hooks/clients/clientsApi";
 
 
 /* =======================

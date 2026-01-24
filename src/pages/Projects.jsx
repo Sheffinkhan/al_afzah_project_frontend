@@ -1,10 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Building2 } from 'lucide-react';
-
-// Import project images
-import projectVilla from '../assets/project-villa.jpg';
-import projectMep from '../assets/project-mep.jpg';
-import projectOffice from '../assets/project-office.jpg';
+import { getProjects } from '../hooks/projects/projectApi';
 
 /* ============================
    Scroll Animation Hook
@@ -56,51 +52,30 @@ const AnimatedSection = ({ children, className = '', delay = 0 }) => {
   );
 };
 
-/* ============================
-   Default Projects
-============================ */
-const defaultProjects = [
-  {
-    id: 1,
-    title: 'Commercial Tower MEP',
-    description:
-      'Complete MEP installation for a 25-story commercial tower including HVAC, electrical, and plumbing systems.',
-    image: projectMep,
-  },
-  {
-    id: 2,
-    title: 'Luxury Villa Complex',
-    description:
-      'Full construction and MEP services for premium residential villas with modern amenities.',
-    image: projectVilla,
-  },
-  {
-    id: 3,
-    title: 'Corporate Office Fitout',
-    description:
-      'High-end office fitout with smart building systems and contemporary design.',
-    image: projectOffice,
-  },
-    {
-    id: 1,
-    title: 'Commercial Tower MEP',
-    description:
-      'Complete MEP installation for a 25-story commercial tower including HVAC, electrical, and plumbing systems.',
-    image: projectMep,
-  },
-  {
-    id: 2,
-    title: 'Luxury Villa Complex',
-    description:
-      'Full construction and MEP services for premium residential villas with modern amenities.',
-    image: projectVilla,
-  },
-];
 
 /* ============================
    Projects Component
 ============================ */
-const Projects = ({ projects = defaultProjects, isAdmin }) => {
+const Projects = ({ isAdmin }) => {
+
+  const [projects, setProjects] = useState([]);
+  const [projectLoading, setProjectLoading] = useState(true);
+
+  /* Fetch Projects */
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const data = await getProjects();
+        setProjects(data);
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      } finally {
+        setProjectLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
       {/* Hero Section */}
@@ -135,48 +110,49 @@ const Projects = ({ projects = defaultProjects, isAdmin }) => {
       {/* Projects Grid */}
       <section className="py-20 px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
-          {projects.length > 0 ? (
+
+          {projectLoading ? (
+            <AnimatedSection>
+              <p className="text-center text-gray-400">Loading projects...</p>
+            </AnimatedSection>
+          ) : projects.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {projects.map((project, i) => (
-                <AnimatedSection key={project.id} delay={i * 100}>
-                  <div className="group relative h-[450px] rounded-2xl overflow-hidden">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
+              {projects.map((project, i) => {
+                const image =
+                  project.images?.[0]?.imageUrl || null;
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/60 to-transparent" />
+                return (
+                  <AnimatedSection key={project.id} delay={i * 100}>
+                    <div className="group relative h-[450px] rounded-2xl overflow-hidden">
 
-                    <div className="absolute top-6 left-6 flex gap-2">
-                      <span className="px-3 py-1 bg-gray-900/80 rounded-full text-xs">
-                        {project.category}
-                      </span>
-                      <span
-                        className={`px-3 py-1 rounded-full text-xs ${
-                          project.status === 'Completed'
-                            ? 'bg-green-600/80'
-                            : 'bg-yellow-600/80'
-                        }`}
-                      >
-                        {project.status}
-                      </span>
+                      {image ? (
+                        <img
+                          src={image}
+                          alt={project.title}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-gray-300 flex items-center justify-center">
+                          <Building2 className="w-12 h-12 text-gray-500" />
+                        </div>
+                      )}
+
+                      <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/60 to-transparent" />
+
+                      <div className="absolute bottom-0 p-8">
+
+                        <h3 className="text-2xl font-bold mt-2 mb-3">
+                          {project.title}
+                        </h3>
+
+                        <p className="text-gray-400 text-sm opacity-0 group-hover:opacity-100 transition">
+                          {project.description}
+                        </p>
+                      </div>
                     </div>
-
-                    <div className="absolute bottom-0 p-8">
-                      <span className="text-red-400 text-sm">{project.date}</span>
-                      <h3 className="text-2xl font-bold mt-2 mb-3">{project.title}</h3>
-                      <p className="text-gray-400 text-sm opacity-0 group-hover:opacity-100 transition">
-                        {project.description}
-                      </p>
-                    </div>
-
-                    {/* <div className="absolute top-6 right-6 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                      <ArrowRight className="text-white" />
-                    </div> */}
-                  </div>
-                </AnimatedSection>
-              ))}
+                  </AnimatedSection>
+                );
+              })}
             </div>
           ) : (
             <AnimatedSection>

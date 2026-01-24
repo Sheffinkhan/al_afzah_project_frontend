@@ -27,11 +27,7 @@ import {
 } from 'lucide-react';
 
 // Import hero images
-import hero1 from '../assets/hero-1.jpg';
-import hero2 from '../assets/hero-2.jpg';
-import hero3 from '../assets/hero-3.jpg';
-import hero4 from '../assets/hero-4.jpg';
-import hero5 from '../assets/hero-5.jpg';
+import { getBanners } from "../hooks/banner/bannerApi";
 
 // Import logo
 import logo from '../assets/logo-AlAfzah.png';
@@ -49,14 +45,9 @@ import serviceFire from '../assets/service-fire.jpg';
 import serviceCivil from '../assets/service-civil.jpg';
 import serviceMaintenance from '../assets/service-maintenance.jpg';
 
-// Import project images
-import projectVilla from '../assets/project-villa.jpg';
-import projectMep from '../assets/project-mep.jpg';
-import projectOffice from '../assets/project-office.jpg';
-import { getClients } from "../services/clientService";
+import { getProjects } from '../hooks/projects/projectApi';
+import { getClients } from "../hooks/clients/clientsApi";
 
-// Hero images array
-const heroImages = [hero1, hero2, hero3, hero4, hero5];
 
 // Custom hook for scroll animations
 const useScrollAnimation = () => {
@@ -112,6 +103,25 @@ const Homepage = () => {
   const [scrollY, setScrollY] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [banners, setBanners] = useState([]);
+  const [bannerLoading, setBannerLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const data = await getBanners();
+        setBanners(data);
+      } catch (error) {
+        console.error("Failed to fetch banners:", error);
+      } finally {
+        setBannerLoading(false);
+      }
+    };
+
+    fetchBanners();
+  }, []);
+
+
 
   // Parallax scroll effect
   useEffect(() => {
@@ -122,16 +132,19 @@ const Homepage = () => {
 
   // Auto-change background images
   useEffect(() => {
+    if (banners.length === 0) return;
+
     const interval = setInterval(() => {
       setIsTransitioning(true);
       setTimeout(() => {
-        setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+        setCurrentImageIndex((prev) => (prev + 1) % banners.length);
         setIsTransitioning(false);
       }, 1000);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [banners]);
+
 
   // Data
   const stats = [
@@ -150,11 +163,24 @@ const Homepage = () => {
     { icon: Wrench, title: 'Maintenance', description: 'Preventive and corrective maintenance for all MEP systems', image: serviceMaintenance },
   ];
 
-  const projects = [
-    { id: 1, title: 'Industrial MEP Complex', category: 'Commercial', status: 'Completed', image: projectMep, description: 'Complete HVAC and mechanical systems installation' },
-    { id: 2, title: 'Luxury Villa Estate', category: 'Residential', status: 'Completed', image: projectVilla, description: 'Premium waterfront villa with full MEP services' },
-    { id: 3, title: 'Modern Office Fitout', category: 'Interior', status: 'In Progress', image: projectOffice, description: 'Contemporary workspace design and fitout' },
-  ];
+  const [projects, setProjects] = useState([]);
+  const [projectLoading, setProjectLoading] = useState(true);
+
+  /* Fetch Projects */
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const data = await getProjects();
+        setProjects(data.slice(0, 6));
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      } finally {
+        setProjectLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   const [clients, setClients] = useState([]);
   const [clientsLoading, setClientsLoading] = useState(true);
@@ -192,25 +218,32 @@ const Homepage = () => {
       {/* HERO SECTION */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          {heroImages.map((img, index) => (
-            <div
-              key={index}
-              className="absolute inset-0 transition-opacity duration-[2000ms] ease-in-out"
-              style={{
-                opacity: currentImageIndex === index ? 1 : 0,
-                zIndex: currentImageIndex === index ? 1 : 0,
-              }}
-            >
-              <img
-                src={img}
-                alt={`Hero background ${index + 1}`}
-                className="w-full h-full object-cover"
-                style={{
-                  transform: `translateY(${scrollY * 0.15}px) scale(${1 + scrollY * 0.0002})`,
-                }}
-              />
-            </div>
-          ))}
+          <div className="absolute inset-0">
+            {bannerLoading ? (
+              <div className="absolute inset-0 bg-gray-900" />
+            ) : (
+              banners.map((banner, index) => (
+                <div
+                  key={banner.id}
+                  className="absolute inset-0 transition-opacity duration-[2000ms] ease-in-out"
+                  style={{
+                    opacity: currentImageIndex === index ? 1 : 0,
+                    zIndex: currentImageIndex === index ? 1 : 0,
+                  }}
+                >
+                  <img
+                    src={banner.imageUrl}
+                    alt={`Hero banner ${index + 1}`}
+                    className="w-full h-full object-cover"
+                    style={{
+                      transform: `translateY(${scrollY * 0.15}px) scale(${1 + scrollY * 0.0002})`,
+                    }}
+                  />
+                </div>
+              ))
+            )}
+          </div>
+
           <div className="absolute inset-0 bg-gradient-to-b from-gray-900/70 via-gray-900/50 to-gray-900/90 z-10" />
           <div
             className="absolute inset-0 z-10 transition-opacity duration-1000"
@@ -274,7 +307,7 @@ const Homepage = () => {
           </div>
 
           <div className="flex gap-2 justify-center mb-12">
-            {heroImages.map((_, index) => (
+            {banners.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentImageIndex(index)}
@@ -548,41 +581,50 @@ const Homepage = () => {
 
           {/* Projects Grid - Bento Style with Images */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {projects.map((project, i) => (
-              <AnimatedSection key={project.id} delay={i * 150}>
-                <div className="group relative h-96 rounded-2xl overflow-hidden cursor-pointer" onClick={() => navigate('/projects')}>
-                  <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent transition-all duration-500 group-hover:via-gray-900/60" />
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-red-600 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-                  <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                    <span className="px-3 py-1 bg-red-600 text-white text-xs font-semibold rounded-full">
-                      {project.category}
-                    </span>
-                    <span className={`px-3 py-1 text-xs font-semibold rounded-full ${project.status === 'Completed' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-gray-900'
-                      }`}>
-                      {project.status}
-                    </span>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-2xl font-bold text-white mb-2">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-300 text-sm opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
-                      {project.description}
-                    </p>
-                    <div className="flex items-center gap-2 mt-4 opacity-0 transform translate-y-4 transition-all duration-500 delay-100 group-hover:opacity-100 group-hover:translate-y-0">
-                      <span className="text-white font-semibold text-sm">View Project</span>
-                      <ArrowRight className="w-4 h-4 text-white" />
+            {projectLoading ? (
+              <div className="col-span-full text-center text-gray-400">
+                Loading projects...
+              </div>
+            ) : (
+              projects.map((project, i) => {
+                const image = project.images?.[0]?.imageUrl;
+                return (
+                  <AnimatedSection key={project.id} delay={i * 150}>
+                    <div
+                      className="group relative h-96 rounded-2xl overflow-hidden cursor-pointer"
+                      onClick={() => navigate('/projects')}
+                    >
+                      {image ? (
+                        <img
+                          src={image}
+                          alt={project.title}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-gray-300 flex items-center justify-center">
+                          <Building2 className="w-12 h-12 text-gray-500" />
+                        </div>
+                      )}
+
+                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent transition-all duration-500" />
+
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                          {project.title}
+                        </h3>
+                        <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition">
+                          {project.description}
+                        </p>
+                      </div>
+
+                      <div className="absolute inset-0 border-2 border-transparent group-hover:border-red-500/30 rounded-2xl transition-all duration-500" />
                     </div>
-                  </div>
-                  <div className="absolute bottom-6 right-6 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center opacity-0 translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
-                    <ArrowRight className="w-5 h-5 text-white -rotate-45" />
-                  </div>
-                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-red-500/30 rounded-2xl transition-all duration-500" />
-                </div>
-              </AnimatedSection>
-            ))}
+                  </AnimatedSection>
+                );
+              })
+            )}
           </div>
+
         </div>
       </section>
 
