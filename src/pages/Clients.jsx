@@ -108,12 +108,7 @@ useEffect(() => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(220,38,38,0.1),transparent_50%)]" />
 
         <div className="relative z-10 text-center px-6 py-20">
-          <AnimatedSection>
-            <span className="inline-block px-4 py-2 bg-red-600/20 border border-red-600/30 rounded-full text-red-400 text-sm font-medium mb-6">
-              <Users className="w-4 h-4 inline mr-2" />
-              Our Partners
-            </span>
-          </AnimatedSection>
+          
 
           <AnimatedSection delay={100}>
             <h1 className="text-4xl md:text-6xl font-bold mb-6">

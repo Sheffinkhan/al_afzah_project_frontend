@@ -7,6 +7,7 @@ import Homepage from "./pages/Homepage";
 import AboutUs from "./pages/AboutUs";
 import Services from "./pages/Services";
 import Projects from "./pages/Projects";
+import ProjectDetail from "./pages/ProjectDetail";
 import Clients from "./pages/Clients";
 import Contact from "./pages/Contact";
 
@@ -27,6 +28,7 @@ const App = () => {
             />
           }
         />
+        <Route path="/projects/:id" element={<ProjectDetail />} />
         <Route
           path="/clients"
           element={

@@ -107,11 +107,7 @@ const AboutUs = () => {
 
         {/* Content */}
         <div className="relative z-10 text-center px-6 py-20">
-          <AnimatedSection>
-            <span className="inline-block px-4 py-2 bg-red-600/20 border border-red-600/30 rounded-full text-red-400 text-sm font-medium mb-6">
-              Established 2022
-            </span>
-          </AnimatedSection>
+          
           
           <AnimatedSection delay={100}>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
