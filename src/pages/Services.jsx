@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { CheckCircle, ChevronDown, ChevronUp, Zap, Droplets, Wind, Flame, Building2, Wrench, ArrowRight, Sparkles } from "lucide-react";
+import { CheckCircle, ChevronDown, ChevronUp, Zap, Droplets, Wind, Flame, Building2, Wrench, ArrowRight } from "lucide-react";
 
 // Import service images
 import serviceElectrical from '../assets/service-electrical.jpg';
