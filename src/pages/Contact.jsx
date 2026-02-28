@@ -104,7 +104,7 @@ const Contact = () => {
 
     try {
       const response = await fetch(
-        "http://3.111.31.155:5000/api/mail/contact",
+        "https://api.al-afzahgroup.com/api/mail/contact",
         {
           method: "POST",
           headers: {
