@@ -128,7 +128,7 @@ const Footer = () => {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="tel:+97444444444"
+                  href="tel:+974 3080 6490"
                   className="flex items-start gap-3 text-gray-400 transition-colors duration-300 hover:text-primary group"
                 >
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/20">
@@ -136,7 +136,7 @@ const Footer = () => {
                   </div>
                   <div>
                     <span className="block text-xs text-gray-500 mb-0.5">Phone</span>
-                    <span className="text-white">+974 XXXX XXXX</span>
+                    <span className="text-white">+974 3080 6490</span>
                   </div>
                 </a>
               </li>
@@ -161,7 +161,12 @@ const Footer = () => {
                   </div>
                   <div>
                     <span className="block text-xs text-gray-500 mb-0.5">Location</span>
-                    <span className="text-white">Doha, Qatar</span>
+                    <span className="block text-white whitespace-nowrap">
+                      Office-04, Floor-01, Building-65
+                    </span>
+                    <span className="block text-white whitespace-nowrap">
+                      Al Tawba Street, Muaither
+                    </span>
                   </div>
                 </div>
               </li>

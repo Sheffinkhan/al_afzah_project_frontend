@@ -2,7 +2,6 @@ import { useEffect, useCallback } from "react";
 
 const TEAM = [
   "Syed Mahroof",
-  "Muhammed Sheffin Khan",
   "Minhaj V Shams",
   "Akshai N V",
   "Sonu Mirza A",
@@ -169,8 +168,8 @@ function MaCoModal({ isOpen, onClose }) {
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { country: "INDIA", number: "+91 7306794846", raw: "7306794846" },
-                { country: "QATAR", number: "+91 9061693067", raw: "9061693067" },
+                { country: "INDIA", number: "+91 70251 95638", raw: "7025195638" },
+                { country: "QATAR", number: "+974 31266690", raw: "31266690" },
                 { country: "DUBAI", number: "+91 9526173222", raw: "9526173222" },
               ].map((contact) => (
                 <div key={contact.country} className="flex flex-col items-center p-3 rounded-lg bg-white/5 border border-white/10 hover:border-[#e8171d]/50 hover:bg-white/10 transition-all cursor-pointer">
