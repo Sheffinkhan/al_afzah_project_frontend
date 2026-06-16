@@ -21,7 +21,6 @@ const Footer = () => {
     'Electrical Works',
     'Plumbing & Drainage',
     'Fire Fighting',
-    'Cleaning Services',
   ];
 
   return (
@@ -162,10 +161,10 @@ const Footer = () => {
                   <div>
                     <span className="block text-xs text-gray-500 mb-0.5">Location</span>
                     <span className="block text-white whitespace-nowrap">
-                      Office-04, Floor-01, Building-65
+                      Building No.154, Floor 1, Street 204,
                     </span>
                     <span className="block text-white whitespace-nowrap">
-                      Al Tawba Street, Muaither
+                       SALWA ROAD, Doha-Qatar PO BOX NO:36258
                     </span>
                   </div>
                 </div>

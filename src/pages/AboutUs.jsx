@@ -83,7 +83,6 @@ const AboutUs = () => {
   const domains = [
     "Building Materials Supply",
     "Contracting and Construction Work",
-    "Cleaning and Soft Services",
     "Annual Maintenance Contracts"
   ];
 
@@ -164,7 +163,7 @@ const AboutUs = () => {
                 <div className="space-y-4 text-gray-400 text-lg leading-relaxed">
                   <p>
                     Al Afzah Group is a professionally managed Engineering, Contracting,
-                    Maintenance, Trading, and Cleaning company established in the State
+                    Maintenance, Trading, and Services company established in the State
                     of Qatar.
                   </p>
                   <p>

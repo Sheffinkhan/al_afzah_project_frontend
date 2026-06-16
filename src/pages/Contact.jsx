@@ -55,7 +55,7 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Visit Us",
-    lines: ["Office-04, Floor-01, Building-65", "Al Tawba Street, Muaither"],
+    lines: ["Building No.154, Floor 1, Street 204,", "SALWA ROAD, Doha-Qatar PO BOX NO:36258"],
     // extra: "PO BOX NO: 36258"
   },
   {
@@ -200,7 +200,7 @@ const Contact = () => {
                       AL AFZAH GROUP
                     </h2>
                     <p className="text-gray-400 text-sm">
-                      Trading, Contracting & Cleaning W.L.L
+                      TRADING, CONTRACTING & SERVICES W.L.L
                     </p>
                   </div>
 

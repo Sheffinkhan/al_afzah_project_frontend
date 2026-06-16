@@ -99,7 +99,7 @@ const services = [
 const serviceDetails = [
   {
     title: "Design & Engineering",
-    description: "AL AFZAH TRADING, CONTRACTING & CLEANING W.L.L has a separate team for providing drafting, designing, preparing shop drawings, as-built drawings etc.",
+    description: "AL AFZAH TRADING, CONTRACTING & SERVICES W.L.L has a separate team for providing drafting, designing, preparing shop drawings, as-built drawings etc.",
     items: [
       "Heat Load Calculation",
       "ESP Calculation",
@@ -176,19 +176,6 @@ const serviceDetails = [
       "Wood & Parquet Flooring",
       "Marble & All Flooring Works",
       "Paint & Finishes",
-    ],
-  },
-  {
-    title: "Cleaning & Soft Services",
-    description: "Science-based cleaning services aimed at keeping employees safe and protected against infectious diseases.",
-    items: [
-      "Housekeeping & Cleaning",
-      "Hygiene & Janitorial Services",
-      "Post Construction Cleaning",
-      "Deep Cleaning",
-      "Premises Management",
-      "Materials & Stores",
-      "Disinfection Services",
     ],
   },
 ];

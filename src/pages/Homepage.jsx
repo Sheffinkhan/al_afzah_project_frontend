@@ -868,8 +868,8 @@ const Homepage = () => {
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm mb-1">Visit our office</p>
-                      <p className="text-xl font-bold text-white">Office-04, Floor-01, Building-65</p>
-                      <p className="text-xl font-bold text-white">Al Tawba Street, Muaither</p>
+                      <p className="text-xl font-bold text-white">Building No.154, Floor 1, Street 204,</p>
+                      <p className="text-xl font-bold text-white">SALWA ROAD, Doha-Qatar PO BOX NO:36258</p>
                     </div>
                   </div>
                 </div>
