@@ -152,7 +152,7 @@ const Contact = () => {
 
         {/* Content */}
         <div className="relative z-10 text-center px-6 py-20">
-          
+
 
           <AnimatedSection delay={100}>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
@@ -345,54 +345,54 @@ const Contact = () => {
         </div>
       </section>
 
-{/* Map Section */}
-<section className="py-20 px-6 md:px-12 lg:px-20 bg-gray-900/50">
-  <div className="max-w-7xl mx-auto">
-    <AnimatedSection>
-      <div className="relative h-[400px] rounded-3xl overflow-hidden border border-gray-800">
+      {/* Map Section */}
+      <section className="py-20 px-6 md:px-12 lg:px-20 bg-gray-900/50">
+        <div className="max-w-7xl mx-auto">
+          <AnimatedSection>
+            <div className="relative h-[400px] rounded-3xl overflow-hidden border border-gray-800">
 
-        {/* Google Map Background */}
-        <iframe
-          title="Al Afzah Group Location"
-          src="https://www.google.com/maps?q=Office-04,+Floor-01,+Building-65,+Al+Tawba+Street,+Muaither,+Qatar&output=embed"
-          className="absolute inset-0 w-full h-full"
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+              {/* Google Map Background */}
+              <iframe
+                title="Al Afzah Group Location"
+                src="https://www.google.com/maps?q=Building+No.154,+Floor+1,+Street+204,+Salwa+Road,+Doha,+Qatar&output=embed"
+                className="absolute inset-0 w-full h-full"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
 
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-gray-900/70 backdrop-blur-[1px]" />
+              {/* Dark Overlay */}
+              <div className="absolute inset-0 bg-gray-900/70 backdrop-blur-[1px]" />
 
-        {/* Content */}
-        <div className="relative z-10 flex items-center justify-center h-full">
-          <div className="text-center px-6">
-            <MapPin className="w-16 h-16 text-red-500 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-white mb-2">
-              Our Location
-            </h3>
-            <p className="text-gray-300">
-              Office-04, Floor-01, Building-65
-            </p>
-            <p className="text-gray-300">
-              Al Tawba Street, Muaither, Qatar
-            </p>
+              {/* Content */}
+              <div className="relative z-10 flex items-center justify-center h-full">
+                <div className="text-center px-6">
+                  <MapPin className="w-16 h-16 text-red-500 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    Our Location
+                  </h3>
+                  <p className="text-gray-300">
+                    Building No.154, Floor 1, Street 204,
+                  </p>
+                  <p className="text-gray-300">
+                    SALWA ROAD, Doha-Qatar PO BOX NO:36258
+                  </p>
 
-            <a
-              href="https://www.google.com/maps?q=Office-04,+Floor-01,+Building-65,+Al+Tawba+Street,+Muaither,+Qatar"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-red-600 text-white font-medium rounded-xl hover:bg-red-700 transition-colors"
-            >
-              Open in Google Maps
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
+                  <a
+                    href="https://www.google.com/maps?q=Building+No.154,+Floor+1,+Street+204,+Salwa+Road,+Doha,+Qatar"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-red-600 text-white font-medium rounded-xl hover:bg-red-700 transition-colors"
+                  >
+                    Open in Google Maps
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </AnimatedSection>
         </div>
-
-      </div>
-    </AnimatedSection>
-  </div>
-</section>
+      </section>
 
       {toast && (
         <Toast
