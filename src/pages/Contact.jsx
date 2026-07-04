@@ -354,7 +354,7 @@ const Contact = () => {
               {/* Google Map Background */}
               <iframe
                 title="Al Afzah Group Location"
-                src="https://maps.google.com/maps?q=25.235570907592773,51.44984817504883&z=17&output=embed"
+                src="https://maps.google.com/maps?q=25.235179941665553,51.450363513516706&z=18&output=embed"
                 className="absolute inset-0 w-full h-full"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -378,7 +378,7 @@ const Contact = () => {
                   </p>
 
                   <a
-                    href="https://www.google.com/maps?q=25.235570907592773,51.44984817504883&z=17&hl=en"
+                    href="https://www.google.com/maps?q=25.235179941665553,51.450363513516706"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-red-600 text-white font-medium rounded-xl hover:bg-red-700 transition-colors"
