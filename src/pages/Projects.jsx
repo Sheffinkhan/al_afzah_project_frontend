@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Building2 } from 'lucide-react';
 import { getProjects } from '../hooks/projects/projectApi';
+import SEO from '../components/SEO';
 
 /* ============================
    Scroll Animation Hook
@@ -101,7 +102,7 @@ const ProjectCard = ({ project }) => {
   return (
     <Link
       to={`/projects/${project.id}`}
-      className="group relative h-[450px] rounded-2xl overflow-hidden block cursor-pointer"
+      className="group relative h-[210px] sm:h-[260px] md:h-[320px] lg:h-[450px] rounded-xl sm:rounded-2xl overflow-hidden block cursor-pointer"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -122,7 +123,7 @@ const ProjectCard = ({ project }) => {
           </>
         ) : (
           <div className="absolute inset-0 bg-gray-300 flex items-center justify-center">
-            <Building2 className="w-12 h-12 text-gray-500" />
+            <Building2 className="w-6 h-6 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-gray-500" />
           </div>
         )}
       </div>
@@ -132,13 +133,13 @@ const ProjectCard = ({ project }) => {
 
       {/* Image Indicator Dots */}
       {images.length > 1 && (
-        <div className={`absolute top-4 right-4 flex gap-1.5 transition-opacity duration-300 ${isHovering ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`absolute top-2 right-2 sm:top-4 sm:right-4 flex gap-1 sm:gap-1.5 transition-opacity duration-300 ${isHovering ? 'opacity-100' : 'opacity-0'}`}>
           {images.map((_, index) => (
             <div
               key={index}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all duration-300 ${
                 index === currentImageIndex
-                  ? 'bg-red-500 w-4'
+                  ? 'bg-red-500 w-3 sm:w-4'
                   : 'bg-white/50'
               }`}
             />
@@ -148,8 +149,8 @@ const ProjectCard = ({ project }) => {
 
       {/* Multi-image Badge */}
       {images.length > 1 && (
-        <div className="absolute top-4 left-4 px-2.5 py-1 bg-gray-900/70 backdrop-blur-sm rounded-full text-xs font-medium flex items-center gap-1">
-          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="absolute top-2 left-2 sm:top-4 sm:left-4 px-1.5 py-0.5 sm:px-2.5 sm:py-1 bg-gray-900/70 backdrop-blur-sm rounded-full text-[10px] sm:text-xs font-medium flex items-center gap-1">
+          <svg className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
           {images.length}
@@ -157,18 +158,18 @@ const ProjectCard = ({ project }) => {
       )}
 
       {/* Content */}
-      <div className="absolute bottom-0 p-8">
-        <h3 className="text-2xl font-bold mt-2 mb-3">
+      <div className="absolute bottom-0 p-3 sm:p-5 md:p-6 lg:p-8">
+        <h3 className="text-sm sm:text-lg md:text-xl lg:text-2xl font-bold mt-1 mb-1 sm:mb-2 lg:mb-3 leading-tight">
           {project.title}
         </h3>
 
-        <p className="text-gray-400 text-sm opacity-0 group-hover:opacity-100 transition line-clamp-2">
+        <p className="hidden sm:block text-gray-400 text-xs md:text-sm opacity-0 group-hover:opacity-100 transition line-clamp-2">
           {project.description}
         </p>
 
         {/* View Project Arrow */}
-        <div className="flex items-center gap-2 mt-4 text-red-400 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
-          <span className="text-sm font-medium">View Project</span>
+        <div className="hidden sm:flex items-center gap-2 mt-2 lg:mt-4 text-red-400 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
+          <span className="text-xs md:text-sm font-medium">View Project</span>
           <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
@@ -203,6 +204,10 @@ const Projects = ({ isAdmin }) => {
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
+      <SEO
+        title="Projects"
+        description="Browse Al-Afzah Group's completed construction, MEP, and fit-out projects across Qatar, showcasing precision, quality craftsmanship, and innovative solutions."
+      />
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950" />
@@ -237,7 +242,7 @@ const Projects = ({ isAdmin }) => {
               </div>
             </AnimatedSection>
           ) : projects.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6 lg:gap-8">
               {projects.map((project, i) => (
                 <AnimatedSection key={project.id} delay={i * 100}>
                   <ProjectCard project={project} />

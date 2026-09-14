@@ -7,7 +7,7 @@ const Toast = ({ type = "success", message, onClose }) => {
 
   return (
     <div
-      className={`fixed top-6 right-6 z-50 px-6 py-4 rounded-xl border text-white shadow-2xl animate-slide-in ${styles[type]}`}
+      className={`fixed top-6 right-6 z-[80] px-6 py-4 rounded-xl border text-white shadow-2xl animate-slide-in ${styles[type]}`}
     >
       <div className="flex items-center gap-4">
         <p className="text-sm font-medium">{message}</p>

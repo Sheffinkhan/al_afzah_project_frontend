@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ChevronLeft, ChevronRight, X, ZoomIn, MapPin, Users, Calendar } from 'lucide-react';
 import { getProjectById } from '../hooks/projects/projectApi';
+import SEO from '../components/SEO';
 
 /* ============================
    Scroll Animation Hook
@@ -107,6 +108,7 @@ const ProjectDetail = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-950 text-gray-100 flex items-center justify-center">
+        <SEO title="Loading Project…" description="Loading project details." noindex />
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-red-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-400">Loading project...</p>
@@ -118,6 +120,7 @@ const ProjectDetail = () => {
   if (error || !project) {
     return (
       <div className="min-h-screen bg-gray-950 text-gray-100 flex items-center justify-center">
+        <SEO title="Project Not Found" description="This project could not be found." noindex />
         <div className="text-center">
           <p className="text-red-400 text-xl mb-4">{error || "Project not found"}</p>
           <Link
@@ -132,10 +135,34 @@ const ProjectDetail = () => {
     );
   }
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.al-afzahgroup.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Projects', item: 'https://www.al-afzahgroup.com/projects' },
+      { '@type': 'ListItem', position: 3, name: project.title, item: `https://www.al-afzahgroup.com/projects/${project.id}` },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
+      <SEO
+        title={project.title}
+        description={`${project.title} — ${project.description || 'a completed project'} by Al-Afzah Group in Qatar.`}
+        image={currentImage}
+      />
+      <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
       {/* Hero Section with Main Image */}
       <section className="relative min-h-[75vh] flex items-end overflow-hidden">
+        {/* Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="absolute top-20 md:top-24 left-6 md:left-12 z-20 flex items-center gap-2 text-xs md:text-sm text-gray-300">
+          <Link to="/" className="hover:text-red-400 transition-colors">Home</Link>
+          <span className="text-gray-500">/</span>
+          <Link to="/projects" className="hover:text-red-400 transition-colors">Projects</Link>
+          <span className="text-gray-500">/</span>
+          <span className="text-white/80 truncate max-w-[140px] md:max-w-none">{project.title}</span>
+        </nav>
         {currentImage ? (
           <img
             src={currentImage}
@@ -347,7 +374,7 @@ const ProjectDetail = () => {
       {/* Lightbox Modal */}
       {lightboxOpen && currentImage && (
         <div
-          className="fixed inset-0 z-50 bg-gray-950/95 backdrop-blur-sm flex items-center justify-center"
+          className="fixed inset-0 z-[80] bg-gray-950/95 backdrop-blur-sm flex items-center justify-center"
           onClick={() => setLightboxOpen(false)}
         >
           <button

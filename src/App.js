@@ -10,6 +10,7 @@ import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import Clients from "./pages/Clients";
 import Contact from "./pages/Contact";
+import NotFound from "./pages/NotFound";
 
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
           }
         />
         <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <Footer />

@@ -5,6 +5,7 @@ import { Building, CheckCircle, Clock, Wrench, Shield, Eye, Target, Users, Award
 import aboutQuality from '../assets/about-quality.jpg';
 import aboutTeam from '../assets/about-team.jpg';
 import aboutPlanning from '../assets/about-planning.jpg';
+import SEO from '../components/SEO';
 
 // Custom hook for scroll animations
 const useScrollAnimation = () => {
@@ -88,6 +89,10 @@ const AboutUs = () => {
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
+      <SEO
+        title="About Us"
+        description="Al-Afzah Group WLL is a professionally managed Engineering, Contracting, Maintenance, Trading, and Services company established in the State of Qatar."
+      />
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
