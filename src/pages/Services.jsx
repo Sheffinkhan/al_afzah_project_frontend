@@ -8,6 +8,7 @@ import serviceHvac from '../assets/service-hvac.jpg';
 import serviceFire from '../assets/service-fire.jpg';
 import serviceCivil from '../assets/service-civil.jpg';
 import serviceMaintenance from '../assets/service-maintenance.jpg';
+import SEO from '../components/SEO';
 
 // Custom hook for scroll animations
 const useScrollAnimation = () => {
@@ -225,6 +226,10 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
+      <SEO
+        title="Services"
+        description="Being one of the leading companies in Qatar, Al-Afzah Group offers comprehensive MEP & fit-out services with experienced technical teams delivering complete solutions."
+      />
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
         {/* Background */}
@@ -309,8 +314,8 @@ const Services = () => {
                       {service.title}
                     </h3>
                     
-                    {/* Description - Revealed on Hover */}
-                    <p className="text-gray-400 text-sm leading-relaxed transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                    {/* Description - always visible on touch, revealed on hover for pointer devices */}
+                    <p className="text-gray-400 text-sm leading-relaxed transform translate-y-0 sm:translate-y-4 opacity-100 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100 transition-all duration-500">
                       {service.description}
                     </p>
                     

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Quote, Star, ArrowRight } from "lucide-react";
 import { getClients } from "../hooks/clients/clientsApi";
+import SEO from '../components/SEO';
 
 
 /* =======================
@@ -102,6 +103,10 @@ useEffect(() => {
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
+      <SEO
+        title="Our Clients"
+        description="Al-Afzah Group is trusted by organizations across industries in Qatar for MEP, civil, and fit-out excellence."
+      />
       {/* ================= HERO ================= */}
       <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950" />

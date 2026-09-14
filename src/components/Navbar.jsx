@@ -35,11 +35,13 @@ const Navbar = () => {
     };
   }, [isMobileMenuOpen]);
 
+  const showLightNav = isScrolled && !isMobileMenuOpen;
+
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
+        className={`fixed top-0 left-0 right-0 z-[70] transition-all duration-500 ${
+          showLightNav
             ? 'bg-white/95 backdrop-blur-md shadow-lg py-3'
             : 'bg-gradient-to-b from-black/60 to-transparent py-4 md:py-5'
         }`}
@@ -54,12 +56,12 @@ const Navbar = () => {
             />
             <div className="flex flex-col justify-center">
               <span className={`text-xl md:text-2xl  font-serif tracking-tight transition-colors duration-300 ${
-                isScrolled ? 'text-gray-900' : 'text-white'
+                showLightNav ? 'text-gray-900' : 'text-white'
               }`}>
                 AL-AFZAH
               </span>
               <span className={`hidden md:block text-xs font-medium transition-colors duration-300 ${
-                isScrolled ? 'text-gray-600' : 'text-white/70'
+                showLightNav ? 'text-gray-600' : 'text-white/70'
               }`}>
                 GROUP WLL
               </span>
@@ -105,23 +107,19 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 z-50 relative"
-            aria-label="Toggle menu"
+            className="lg:hidden w-10 h-10 flex items-center justify-center relative z-50"
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileMenuOpen}
           >
-            <span className={`block w-6 h-0.5 transition-all duration-300 ${
-              isMobileMenuOpen 
-                ? 'rotate-45 translate-y-2 bg-white' 
-                : isScrolled ? 'bg-gray-900' : 'bg-white'
+            <span className={`absolute block w-6 h-0.5 rounded-full transition-all duration-300 ${
+              isMobileMenuOpen
+                ? 'rotate-45 translate-y-0 bg-white'
+                : `-translate-y-[5px] ${isScrolled ? 'bg-gray-900' : 'bg-white'}`
             }`} />
-            <span className={`block w-6 h-0.5 transition-all duration-300 ${
-              isMobileMenuOpen 
-                ? 'opacity-0' 
-                : isScrolled ? 'bg-gray-900' : 'bg-white'
-            }`} />
-            <span className={`block w-6 h-0.5 transition-all duration-300 ${
-              isMobileMenuOpen 
-                ? '-rotate-45 -translate-y-2 bg-white' 
-                : isScrolled ? 'bg-gray-900' : 'bg-white'
+            <span className={`absolute block w-6 h-0.5 rounded-full transition-all duration-300 ${
+              isMobileMenuOpen
+                ? '-rotate-45 translate-y-0 bg-white'
+                : `translate-y-[5px] ${isScrolled ? 'bg-gray-900' : 'bg-white'}`
             }`} />
           </button>
         </div>

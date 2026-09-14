@@ -47,6 +47,7 @@ import serviceMaintenance from '../assets/service-maintenance.jpg';
 
 import { getProjects } from '../hooks/projects/projectApi';
 import { getClients } from "../hooks/clients/clientsApi";
+import SEO from '../components/SEO';
 
 
 // Custom hook for scroll animations
@@ -214,6 +215,7 @@ const Homepage = () => {
 
   return (
     <div className="overflow-hidden">
+      <SEO description="Al-Afzah Group WLL is a leading construction and MEP services company in Qatar, delivering exceptional quality and innovative engineering solutions." />
 
       {/* HERO SECTION */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -529,7 +531,7 @@ const Homepage = () => {
                     <h3 className="text-xl font-bold text-white mb-2">
                       {service.title}
                     </h3>
-                    <p className="text-gray-300 text-sm opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                    <p className="text-gray-300 text-sm opacity-100 sm:opacity-0 transform translate-y-0 sm:translate-y-4 transition-all duration-500 sm:group-hover:opacity-100 sm:group-hover:translate-y-0">
                       {service.description}
                     </p>
                     <div className="absolute bottom-6 right-6 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center opacity-0 translate-x-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0">
@@ -612,7 +614,7 @@ const Homepage = () => {
                         <h3 className="text-2xl font-bold text-white mb-2">
                           {project.title}
                         </h3>
-                        <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition">
+                        <p className="text-gray-300 text-sm opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition">
                           {project.description}
                         </p>
                       </div>

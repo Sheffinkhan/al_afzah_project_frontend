@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Mail, Phone, MapPin, Globe, Send, Clock, ArrowRight } from "lucide-react";
 import Toast from "../components/Toast";
 import logo from '../assets/Navlogo.png';
+import SEO from '../components/SEO';
 // Custom hook for scroll animations
 const useScrollAnimation = () => {
   const ref = useRef(null);
@@ -138,6 +139,10 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
+      <SEO
+        title="Contact Us"
+        description="Get in touch with Al-Afzah Group WLL in Doha, Qatar for project inquiries, partnerships, or general questions about our construction and MEP services."
+      />
       {/* Hero Section */}
       <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
         {/* Background */}
